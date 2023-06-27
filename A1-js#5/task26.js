@@ -1,18 +1,23 @@
 //Given a string remove all X or Ypresent together in the string
-var str = "AAXXXBBYYYCXXDYY";
-    var result = "";
-    var len = str.length;
-  
-    for (var i = 0; i < len; i++) {
-      if ((str[i] === "X" && str[i + 1] === "Y") || (str[i] === "Y" && str[i + 1] === "X")) {
-        // Skip the next character as well
-        i++;
-      } else {
-        // Append the current character to the result
-        result += str[i];
-      }
+let str="AXBYCXDY";
+let out = "";
+let len=str.length;
+for(let i=0; i<len;i++){
+    let ch = str[i];
+    let prech = str[i-1];
+    if(ch=='X' || ch=='Y'){
+        if(prech=='X'){
+            //do nothing
+        }
+        else  if(prech=='Y'){
+            //do nothing
+        }
+        else{
+            out = out + ch;
+        }
     }
-  
-  
-  console.log(result);
-  
+    else{
+        out=out+ch;
+    }
+}
+console.log(out);
