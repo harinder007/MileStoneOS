@@ -1,4 +1,4 @@
-//Define a function that takes a string as parameter and returns true if the string has Equal Bracketsand false otherwise. A string has Equal Brackets if the number of ( is equal to the number of ) in the string
+//Define a function that takes a string as parameter and returns true if the string has Equal Brackets and false otherwise. A string has Equal Brackets if the number of ( is equal to the number of ) in the string
 function hasEqualBrackets(str) {
   let count1 = 0;
   let count2 =0;

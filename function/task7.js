@@ -1,4 +1,4 @@
-//Define afunction that takes a string and char1 and char2 as parameter and returns 1 if char1 occurs more than char2 in the string, 0 if they occur the same number of times and -1 otherwise
+//Define a function that takes a string and char1 and char2 as parameter and returns 1 if char1 occurs more than char2 in the string, 0 if they occur the same number of times and -1 otherwise
 function compareCharOccurrences(str, char1, char2) {
     let countChar1 = 0;
     let countChar2 = 0;
