@@ -10,6 +10,7 @@ let num1= numbers.find(function(n){
  })
 console.log('findIndex = ',num2);
 
+
 let num3=numbers.filter(function(n){
     return n>x;
 })
