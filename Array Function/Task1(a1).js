@@ -4,7 +4,7 @@ let x=11;
 let num1= numbers.find(function(n){
     return n>x;
  });
- console.log("find = ",num1);
+ console.log("find = ",num1); 
  let num2=numbers.findIndex(function(n){
     return n>x;
  })
