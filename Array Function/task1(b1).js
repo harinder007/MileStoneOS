@@ -16,17 +16,19 @@ console.log("Asscending order ",nums)
 
 
 // 
-const names =['jack','tim','anna','steve','ed']
-// sort in ascending order of lenth
-function compLengthAsc(str1,str2){
-    let len1=str1.lenght;
-    let len2=str2.lenght;
-    if(len1>len2)
-     return 1;
-    else if(len1<len2)
-     return -1;
-    else 
-        return 0;
+const names = ['jack', 'tim', 'anna', 'steve', 'ed'];
 
+function compLengthAsc(str1, str2) {
+  let len1 = str1.length;
+  let len2 = str2.length;
+  
+  if (len1 > len2)
+    return 1;
+  else if (len1 < len2)
+    return -1;
+  else 
+    return 0;
 }
-console.log(names)
+
+names.sort(compLengthAsc);
+console.log(names);
