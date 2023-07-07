@@ -1,5 +1,4 @@
-//Given a number minAge, filter the array for those whose age is greater than minAge. 
-//Also find and findIndex the first JSON whose age is greater than minAge.
+//Given a string str as input,filter the array for those whose country is one specified in str.
 let array=[   {"name":"Jack","country":"USA","age":35},
     {"name":"Amit","country":"India","age":38},
     {"name":"Edward","country":"USA","age":41},
@@ -12,22 +11,20 @@ let array=[   {"name":"Jack","country":"USA","age":35},
     {"name":"Harpreet","country":"India","age":48},
     {"name":"Bob","country":"USA","age":21}
   ]
-  let minAge=35;
+  let str="France";
 
- function check(n,minAge){
-    return n.age>minAge
+ function check(n,str){
+    return n.country===str
  }
-
-
 
   let country=array.filter(function(n){
     
-    return check(n,minAge)
+    return check(n,str)
   })
-  console.log("Whose age is greater then minage =",country);
+  console.log("Whose country is ",str ," =",country);
 
   // find index
   let index1=array.findIndex(function(n){
-    return check(n,minAge)
+    return check(n,str)
   })
   console.log("Index is =" ,index1);
