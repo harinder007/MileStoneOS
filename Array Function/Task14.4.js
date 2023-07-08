@@ -1,4 +1,4 @@
-//Sort the array in descendingorder marks in maths
+//Sort the array in descending order marks in maths
 const Array = [
     {"name":"Jack","maths":55,"english":60,"science":62},
     {"name":"Anita","maths":62,"english":65,"science":56},

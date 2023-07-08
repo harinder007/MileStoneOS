@@ -10,12 +10,12 @@ const Array = [
   
   Array.sort(function(a, b) {
     let s1= a.maths+a.english+a.science
-    let s2=a.maths+a.english+a.science
+    let s2=b.maths+b.english+b.science
     if(s1<s2){
-        return 1;
+        return -1;
     }
     else if(s1>s2){
-        return -1;
+        return 1;
     }
     else {
         return 0;
