@@ -1,0 +1,43 @@
+.outer{
+    border-style: solid;
+    border-color: black;
+    padding: 20px;
+}
+
+h2{
+    text-align: center;
+    color: blue;
+}
+.btn{
+    text-align: center;
+}
+.outer{
+    background-color: rgb(242, 73, 73);
+}
+
+.label{
+    float: left;
+    margin-top: -12px;
+
+}
+.inpt{
+    margin-left: 300px;
+    margin-top: 10px;
+}
+p{
+ margin-top: 20px;
+}
+
+
+td{
+    padding: 5px;
+}
+th{
+    padding: 5px;
+}
+.education{
+    float: left;
+    margin-top: 90px;
+    margin-right: 110px;
+}
+
