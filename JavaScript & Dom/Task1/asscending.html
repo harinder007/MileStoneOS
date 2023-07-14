@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>List of Names</h1>
+    <div id="ListNames"></div>
+    <button onclick="showNames()">Show Names</button>
+    <button onclick="hideNames()">Hide Names</button><br>
+    <button onclick="sortAsc()">Asscending</button>
+    <button onclick="sortDesc()">Descending</button>
+    <script>
+        const names = ['Harinder', 'Rahul', 'Prince', 'Amit'];
+
+        function showNames() {
+            const namesMap = names.map(function(n) {
+                return '<li>' + n + '</li>';
+            });
+            let str = '<ul>' + namesMap.join('') + '</ul>';
+            let element = document.getElementById('ListNames');
+            element.innerHTML = str;
+        }
+
+        function hideNames() {
+            let element = document.getElementById('ListNames');
+            element.innerHTML = '';
+        }
+
+        function sortAsc(){
+            names.sort(sortNamesAsc);
+            showNames();
+
+        }
+        function sortNamesAsc(names1,name2){
+            return names1.localeCompare(name2);
+        }
+        function sortDesc(){
+            names.sort(sortNamesDesc);
+            showNames();
+        }
+        function sortNamesDesc(names1,names2){
+            return -1 *names1.localeCompare(names2)
+        }
+    </script>
+</body>
+</html>

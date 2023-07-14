@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>List of Names</h1>
+    <div id="ListNames"></div>
+    <button onclick="showNames()">Show Names</button>
+    <button onclick="hideNames()">Hide Names</button>
+    <script>
+        const names = ['Harinder', 'Rahul', 'Prince', 'Amit'];
+
+        function showNames() {
+            const namesMap = names.map(function(n) {
+                return '<li>' + n + '</li>';
+            });
+            let str = '<ul>' + namesMap.join('') + '</ul>';
+            let element = document.getElementById('ListNames');
+            element.innerHTML = str;
+        }
+
+        function hideNames() {
+            let element = document.getElementById('ListNames');
+            element.innerHTML = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=h, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 50%;
+          border: 1px solid black;
+        }
+        th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: center;
+          font-weight: bold;
+        }
+        th {
+            color: white;
+            background-color: rgb(17, 12, 12);
+        }
+        .remove-button {
+          background-color: red;
+          color: white;
+          text-align: center;
+          cursor: pointer;
+        }
+        .button-gap {
+          margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="font-weight: bold;">Students</h2>
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>Maths</th>
+        <th>Computer</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>Bob</td>
+        <td style="background-color: rgb(76, 228, 152)">82</td>
+        <td style="background-color: rgb(76, 228, 152)">88</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    <tr>
+        <td>Jack</td>
+        <td style="background-color: rgb(225, 131, 196)">44</td>
+        <td>55</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    <tr>
+        <td>Mary</td>
+        <td style="background-color: rgb(76, 228, 152)">91</td>
+        <td>73</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    <tr>
+        <td>Dave</td>
+        <td>60</td>
+        <td style="background-color: rgb(76, 228, 152)">89</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    <tr>
+        <td>Julia</td>
+        <td>58</td>
+        <td>60</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    <tr>
+        <td>Steve</td>
+        <td style="background-color: rgb(225, 131, 196)">42</td>
+        <td style="background-color: rgb(225, 131, 196)">47</td>
+        <td><button class="remove-button">Remove</button></td>
+    </tr>
+    </table>
+    <button class="button-gap">Show Students</button>
+    <button class="button-gap">Highlight marks</button>
+    <button class="button-gap">Highlight Students</button>
+    <button>Clear</button>
+</body>
+</html>

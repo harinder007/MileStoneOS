@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .showBlue{
+            background-color: rgb(67, 67, 228);
+            color: white;
+            font-weight: bold;
+            
+        }
+
+        .showGreen{
+            background-color: rgb(24, 227, 82);
+            color: white;
+            font-weight: bold;
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <h2>Sales Data</h2>
+    <p id="name" class="showBlue">Seller : Jack Smith</p>
+    <p id="email" class="showBlue">Jack@gmail.com</p>
+    <p id="mobile" class="showBlue">mobile :87884655 </p>
+    
+
+    <button onclick="changeNameStyle()">Change Name Style</button>
+    <button onclick="changeStyleAll()">All Green</button>
+    <button onclick="clearStyles()">Clear Style<f/button>
+
+     <script>
+
+        const ids=['name','email','mobile'];
+
+
+        function changeNameStyle(){
+            let element=document.getElementById('name');
+            element.className='showGreen';
+        }
+        function changeStyleAll(){
+            for(let i=0;i<ids.length;i++){
+                let element=document.getElementById(ids[i]);
+                element.className='showGreen'
+            }
+
+
+            
+            }
+            function clearStyles(){
+                for(let i=0;i<ids.length;i++){
+                let element=document.getElementById(ids[i]);
+                element.className='';
+            }
+        }
+
+     </script>
+</body>
+</html>
