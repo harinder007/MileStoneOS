@@ -1,0 +1,66 @@
+li {
+    display: inline;
+    margin-right: 30px;
+    
+}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+  }
+  .black{
+    background-color: rgb(31, 29, 29);
+    text-align:center;
+    padding-top: 5%;
+   padding-bottom:5%;
+   color: white;
+  }
+  .black_strip{
+    background-color: black;
+    margin-top: 30px;
+    padding-top: 50px;
+  }
+  #greenbtn{
+    background-color: lightgreen;
+  }
+  #italic{
+    font-style: italic;
+    font-size: 20px;
+    color: white;
+  }
+  .buttonAlign{
+    text-align: center;
+    cursor: pointer;
+  }
+  #searchbtn{
+    border-radius:8px;
+    background-color: lightblue;
+    padding: 5px 20px;
+    cursor: pointer;
+  }
+  #recomendedbtn{
+    border-radius:8px;
+    padding: 5px 20px;
+    cursor: pointer;
+    color:white;
+    background-color: black;
+    box-shadow: 50cm;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  p {
+    margin-bottom: 20px;
+  }
+  
+  #greenbtn {
+    margin-left: 30px; /* Adjust the distance between the button and inputs as needed */
+  }
+  input {
+    margin-right: 70px; /* Adjust the distance between the input boxes and the button as needed */
+  }
+  
