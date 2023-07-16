@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People List</title>
+</head>
+
+<body>
+    <h2>List of People</h2>
+    <div id="output"></div>
+    <button onclick="showPeople()">Show All</button>
+    <button onclick="clearOutput()">Hide</button><br>
+    <button onclick="sortByName()">Sort by Name</button>
+    <button onclick="sortByCountry()">Sort by Country</button>
+    <button onclick="sortByAge()">Sort by Age</button><br>
+    <button onclick="sortByCountryName()">Sort by country & name</button>
+    <button onclick="sortByCountryAge()">Sort by country & Age</button><br>
+    <button onclick="filterByCountry('India')">India</button>
+    <button onclick="filterByCountry('USA')">USA</button>
+    <button onclick="filterByCountry('France')">France</button><br>
+    <button onclick="styleByCountry()">Style by Country</button>
+    <button onclick="styleByAge()">Style by Age</button>
+
+
+    <script>
+        const people = [
+            {"name": "Jack", "country": "USA", "age": 35},
+            {"name": "Amit", "country": "India", "age": 38},
+            {"name": "Edward", "country": "USA", "age": 41},
+            {"name": "Vishal", "country": "India", "age": 30},
+            {"name": "Annie", "country": "USA", "age": 27},
+            {"name": "Nick", "country": "France", "age": 32},
+            {"name": "Francis", "country": "France", "age": 44},
+            {"name": "Preeti", "country": "India", "age": 25},
+            {"name": "Sophie", "country": "France", "age": 29},
+            {"name": "Harpreet", "country": "India", "age": 48},
+            {"name": "Bob", "country": "USA", "age": 21}
+        ];
+
+        function generateListItems(person) {
+            return "<li>" + person.name + ", " + person.country + ", " + person.age + "</li>";
+        }
+        // show people
+        function showPeople() {
+            let output = document.getElementById("output");
+            let listItems = people.map(generateListItems);
+            output.innerHTML = "<ul>" + listItems.join("") + "</ul>";
+        }
+        // clear output
+        function clearOutput() {
+            let output = document.getElementById("output");
+            output.innerHTML = "";
+        }
+
+        function sortByName() {
+            people.sort((a, b) => a.name.localeCompare(b.name));
+            showPeople();
+        }
+
+        function sortByCountry() {
+            people.sort((a, b) => a.country.localeCompare(b.country));
+            showPeople();
+        }
+
+        function sortByAge() {
+            people.sort((a, b) => a.age - b.age);
+            showPeople();
+        }
+
+        function sortByCountryName() {
+            people.sort(function(a, b){
+                // First, sort by country
+                if (a.country < b.country) return -1;
+                if (a.country > b.country) return 1;
+
+                // If the countries are the same, sort by name
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+
+                // If both country and name are the same, maintain the original order
+                return 0;
+            });
+
+            showPeople();
+        }
+
+        function sortByCountryAge() {
+            people.sort(function(a, b){
+                // First, sort by country
+                if (a.country < b.country) return -1;
+                if (a.country > b.country) return 1;
+
+                // If the countries are the same, sort by Age
+                if (a.age < b.age) return -1;
+                if (a.age > b.age) return 1;
+
+                return 0;
+            });
+
+            showPeople();
+        }
+
+        function filterByCountry(country) {
+            const filteredPeople = people.filter(function(person) {
+                return person.country === country;
+            });
+
+            let output = document.getElementById("output");
+            let listItems = filteredPeople.map(generateListItems);
+            output.innerHTML = "<ul>" + listItems.join("") + "</ul>";
+        }
+
+        function getCountryColor(country) {
+            switch (country) {
+                case 'India':
+                    return 'blue';
+                case 'USA':
+                    return 'green';
+                case 'France':
+                    return 'red';
+                default:
+                    return 'black'; // Default color for other countries
+            }
+        }
+
+        function getAgeColor(age) {
+            if (age <= 30) {
+                return 'green';
+            } else if (age <= 40) {
+                return 'blue';
+            } else {
+                return 'red';
+            }
+        }
+
+        function styleByCountry() {
+            let output = document.getElementById("output");
+            let listItems = people.map(person => {
+                return "<li style='color: " + getCountryColor(person.country) + ";'>" + person.name + ", " + person.country + ", " + person.age + "</li>";
+            });
+            output.innerHTML = "<ul>" + listItems.join("") + "</ul>";
+        }
+
+        function styleByAge() {
+            let output = document.getElementById("output");
+            let listItems = people.map(person => {
+                return "<li style='color: " + getAgeColor(person.age) + ";'>" + person.name + ", " + person.country + ", " + person.age + "</li>";
+            });
+            output.innerHTML = "<ul>" + listItems.join("") + "</ul>";
+        }
+
+    </script>
+</body>
+
+</html>
