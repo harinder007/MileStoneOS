@@ -6,7 +6,7 @@ const arr = names.map(function(element) {
 
 // Function to create JSON objects with firstName and lastName
 function makeNameJson(name) {
-    let  index = name.indexOf(' ');
+    let index = name.indexOf(' ');
     let json = {};
 
     if (index < 0) {
