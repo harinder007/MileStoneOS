@@ -1,7 +1,7 @@
  
 //Add 1 to odd number
 let n=3;
-if(n%2==1){
+if(n%2==1){ 
 console.log(n+1)
 }
 else {
