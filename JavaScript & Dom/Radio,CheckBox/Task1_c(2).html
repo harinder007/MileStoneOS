@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    What do you Know best <br>
+    <input type="radio" name="tech" value="Javascript" id="r1">Javascript <br>
+    <input type="radio" name="tech" value="React" id="r2">React <br>
+    <input type="radio" name="tech" value="Angular" id="r3">Angular<br>
+    <button onclick="showChecked()">Show Checked value</button>
+    <script>
+function showChecked(){
+    // get element by Name collection of all elemnt matching the name
+    let value=""
+    let names=document.getElementsByName("tech")
+   // console.log(names)
+   for(let i=0; i<names.length;i++){
+    if(names[i].checked){
+        value=names[i].value
+    }
+
+   }
+   console.log(value);
+}
+    </script>
+</body>
+</html>

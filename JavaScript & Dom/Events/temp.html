@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            border: 1px solid #070707;
+            padding: 10px;
+            width: 300px;
+        }
+        .input-box {
+            margin-bottom: 10px;
+        }
+        .input-box input, .input-box select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #0b0b0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Convert Length</h2>
+        <table>
+            <tr>
+                <td class="input-box">
+                    <input type="text" id="input1" style="border: 1px solid #282525;" oninput="convertLengthLeft()">
+                </td>
+                <td class="input-box">
+                    <input type="text" id="input2" style="border: 1px solid #000000;" oninput="convertLengthRight()">
+                </td>
+            </tr>
+            <tr>
+                <td class="input-box">
+                    <select name="unit1" id="unit1" style="border: 1px solid #0b0a0a;" onchange="convertLengthRight()">
+                        <option value="kilometer">Kilometer</option>
+                        <option value="meter">Meter</option>
+                        <option value="centimeter">Centimeter</option>
+                        <option value="millimeter">Millimeter</option>
+                        <option value="mile">Mile</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </td>
+                <td class="input-box">
+                    <select name="unit2" id="unit2" style="border: 1px solid #0c0b0b;" onchange="convertLengthLeft()">
+                        <option value="kilometer">Kilometer</option>
+                        <option value="meter">Meter</option>
+                        <option value="centimeter">Centimeter</option>
+                        <option value="millimeter">Millimeter</option>
+                        <option value="mile">Mile</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function convertLengthLeft() {
+            const input1 = document.getElementById('input1');
+            const input2 = document.getElementById('input2');
+            const unit1 = document.getElementById('unit1').value;
+            const unit2 = document.getElementById('unit2').value;
+
+            // Conversion factors
+            const conversionFactors = {
+                kilometer: 1,
+                meter: 0.001,
+                centimeter: 0.00001,
+                millimeter: 0.000001,
+                mile: 1.60934
+            };
+
+            // Calculate the conversion result and update the right input field
+            input2.value = (+input1.value * conversionFactors[unit1] / conversionFactors[unit2]).toFixed(2);
+        }
+
+        function convertLengthRight() {
+            const input1 = document.getElementById('input1');
+            const input2 = document.getElementById('input2');
+            const unit1 = document.getElementById('unit1').value;
+            const unit2 = document.getElementById('unit2').value;
+
+            // Conversion factors
+            const conversionFactors = {
+                kilometer: 1,
+                meter: 0.001,
+                centimeter: 0.00001,
+                millimeter: 0.000001,
+                mile: 1.60934
+            };
+
+            // Calculate the conversion result and update the left input field
+            input1.value = (+input2.value * conversionFactors[unit2] / conversionFactors[unit1]).toFixed(2);
+        }
+    </script>
+</body>
+</html>

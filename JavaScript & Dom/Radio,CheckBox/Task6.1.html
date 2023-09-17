@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <br />
+    <div id="input"></div>
+    <div id="checkbox"></div>
+    <button onclick="add()">Add student</button>
+    <script>
+      let arr = ["Cricket","Football","Basketball","Badminton","Table Tennis"];
+
+      function checkbox(id, arr) {
+        let r1 = arr.map(function (val, index) {
+          return (
+            '<input type="checkbox" id="' + id + index + '">' + val + "<br/>"
+          );
+        });
+        return r1.join("");
+      }
+      document.getElementById("input").innerHTML =
+        '<input type="text" placeholder="Enter the student name" id="name"/>';
+
+      document.getElementById("checkbox").innerHTML = checkbox("x", arr);
+      let data = [];
+
+      function add() {
+        let St = {};
+        St.name = document.getElementById("name").value;
+        St.sports = [];
+       
+        for (let i = 0; i < arr.length; i++) {
+          let checkbox = document.getElementById("x" + i);
+          if (checkbox.checked) {
+            St.sports.push(arr[i]);
+            checkbox.checked = false; // Uncheck the checkbox after adding to JSON
+          }
+        }
+        data.push(St);
+        console.log(data);
+        
+        // Clear the input box after adding the student
+        document.getElementById("name").value = '';
+
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #personName {
+      color: red;
+    }
+    #ChooseAge {
+      color: red;
+    }
+    #cityDiv,
+    #chooseTech {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  Name:<input type="text" id="name" onkeyup="validateName()" /><br />
+  <div id="personName"></div>
+  Age:<input type="text" id="age" onkeyup="validateAge()" /><br />
+  <div id="ChooseAge"></div>
+  City:<input type="text" id="city" onkeyup="validateCity()" /><br />
+  <div id="cityDiv"></div>
+  Technology:<input type="text" id="tech" onkeyup="validateTech()" />
+  <div id="chooseTech"></div>
+  <button id="btn" disabled>Add person</button>
+  <script>
+    let array = [
+      { name: "Jack", age: 28, city: "London", tech: "Android" },
+      { name: "Mary", age: 32, city: "Paris", tech: "React" },
+      { name: "Bob", age: 35, city: "New York", tech: "Angular" },
+      { name: "Steve", age: 26, city: "Delhi", tech: "Spring" },
+    ];
+
+    function validateName() {
+      let person = document.getElementById("name").value;
+      let personNameError = document.getElementById("personName");
+
+      // Reset error message
+      personNameError.innerHTML = "";
+
+      // Show error message if the name already exists
+      for (let i = 0; i < array.length; i++) {
+        if (person === array[i].name) {
+          personNameError.innerHTML = "Person with the same name exists";
+          document.getElementById("btn").disabled = true;
+          return;
+        }
+      }
+
+      // Clear error message and enable button if all inputs are valid
+      personNameError.innerHTML = "";
+      enableButtonIfValid();
+    }
+
+    function validateAge() {
+      let age1 = document.getElementById("age").value;
+      let ageError = document.getElementById("ChooseAge");
+
+    
+      ageError.innerHTML = "";
+
+      // Show error message if age is invalid
+      if (age1 < 18) {
+        ageError.innerHTML = "Minimum age should be 18";
+        document.getElementById("btn").disabled = true;
+        return;
+      }
+       // Clear error message and enable button if all inputs are valid
+      ageError.innerHTML = "";
+      enableButtonIfValid();
+    }
+
+    function validateCity() {
+      let city1 = document.getElementById("city").value;
+      let cityError = document.getElementById("cityDiv");
+      cityError.innerHTML = "";
+
+      // Show error message if city is not in the specified list
+      let cityFound = false;
+      for (let i = 0; i < array.length; i++) {
+        if (city1.toLowerCase() === array[i].city.toLowerCase()) {
+          cityFound = true;
+          break;
+        }
+      }
+
+      if (!cityFound) {
+        cityError.innerHTML = "Enter a city from London, Paris, New York, Delhi";
+        document.getElementById("btn").disabled = true;
+        return;
+      }
+
+      // Clear error message and enable button if all inputs are valid
+      cityError.innerHTML = "";
+      enableButtonIfValid();
+    }
+
+    function validateTech() {
+      let tech1 = document.getElementById("tech").value;
+      let techError = document.getElementById("chooseTech");
+      techError.innerHTML = "";
+
+      // Show error message if technology is not in the specified list
+      let techFound = false;
+      for (let i = 0; i < array.length; i++) {
+        if (tech1.toLowerCase() === array[i].tech.toLowerCase()) {
+          techFound = true;
+          break;
+        }
+      }
+
+      if (!techFound) {
+        techError.innerHTML = "Enter a technology from Android, React, Angular, Spring";
+        document.getElementById("btn").disabled = true;
+        return;
+      }
+
+      // Clear error message and enable button if all inputs are valid
+      techError.innerHTML = "";
+      enableButtonIfValid();
+    }
+
+    function enableButtonIfValid() {
+      // Enable the button if all inputs are valid
+      let btn = document.getElementById("btn");
+      if (
+        document.getElementById("name").value &&
+        document.getElementById("age").value >= 18 &&
+        document.getElementById("city").value &&
+        document.getElementById("tech").value
+      ) {
+        btn.disabled = false;
+      } else {
+        btn.disabled = true;
+      }
+    }
+  </script>
+</body>
+</html>

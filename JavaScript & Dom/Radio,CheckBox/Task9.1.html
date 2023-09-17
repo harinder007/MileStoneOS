@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Technical Skills</title>
+</head>
+<body>
+  Share your Technical Skill
+    <div id="checkboxContainer">
+        
+    </div>
+
+    <script>
+        const technologies = ['JavaScript', 'Python', 'Java', 'Android', 'iOS'];
+
+        function generateCheckboxes() {
+            const checkboxContainer = document.getElementById('checkboxContainer');
+
+            // Generate checkboxes based on the technologies array
+            const checkboxesHTML = technologies.map((technology) => {
+                return `<label><input type="checkbox" name="technologies" value="${technology}"> ${technology}<br></label>`;
+            }).join('');
+
+            checkboxContainer.innerHTML = checkboxesHTML;
+        }
+
+        // Generate the initial checkboxes when the page loads
+        generateCheckboxes();
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Hide names for selected applicants */
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Quiz Competition Team Selection</h2>
+    <div id="applicant"></div>
+    <div id="team"></div>
+    <script>
+      let applicants = ["Jack", "Tim", "Bob", "Mary", "Anna", "Martha", "Steve", "Ed", "John", "Sid"];
+
+      function createCheckbox(id, arr) {
+        let r1 = arr.map(function (val, index) {
+          return (
+            '<div><input type="checkbox" id="' + id + index +
+            '" onchange="updateTeam(\'' + id + index + '\')">' + '<label for="' + id + index + '">' + val + '</label></div>'
+          );
+        });
+        return r1.join("");
+      }
+
+      document.getElementById("applicant").innerHTML = createCheckbox("x", applicants);
+
+      let selectedApplicants = [];
+
+      function updateTeam(id) {
+        let elem = document.getElementById(id);
+        let teamSizeLimit = 5;
+        let index = selectedApplicants.indexOf(elem.nextElementSibling.textContent);
+
+        if (elem.checked) {
+          if (selectedApplicants.length < teamSizeLimit) {
+            if (index === -1) {
+              selectedApplicants.push(elem.nextElementSibling.textContent);
+            }
+            elem.parentNode.classList.add("hidden"); 
+            if (selectedApplicants.length === teamSizeLimit) {
+              disableAllCheckboxes();
+            }
+          } else {
+            elem.checked = false;
+            return;
+          }
+        } else {
+          if (index !== -1) {
+            selectedApplicants.splice(index, 1);
+            elem.parentNode.classList.remove("hidden"); // Show the div again
+            enableAllCheckboxes();
+          }
+        }
+
+        let teamSection = document.getElementById("team");
+
+        let s1 = "<h3>Team</h3>";
+        s1 += "<ul>";
+        for (let i = 0; i < selectedApplicants.length; i++) {
+          s1 += '<li>' + selectedApplicants[i] + ' <button onclick="removeFromTeam(' + i + ')">x</button></li>';
+        }
+        s1 += "</ul>";
+        teamSection.innerHTML = s1;
+      }
+
+      function disableAllCheckboxes() {
+        let checkboxes = document.querySelectorAll("#applicant input[type='checkbox']");
+        checkboxes.forEach(function (checkbox) {
+          if (!checkbox.checked) {
+            checkbox.disabled = true;
+          }
+        });
+      }
+
+      function enableAllCheckboxes() {
+        let checkboxes = document.querySelectorAll("#applicant input[type='checkbox']");
+        checkboxes.forEach(function (checkbox) {
+          checkbox.disabled = false;
+        });
+      }
+
+      function removeFromTeam(index) {
+  let removedApplicant = selectedApplicants.splice(index, 1)[0];
+  let applicantDivs = document.querySelectorAll("#applicant div");
+  for (let i = 0; i < applicantDivs.length; i++) {
+    if (applicantDivs[i].textContent.includes(removedApplicant)) {
+      applicantDivs[i].classList.remove("hidden");
+      // Uncheck the corresponding checkbox in the "Applicant" section
+      let checkboxId = "x" + applicants.indexOf(removedApplicant);
+      document.getElementById(checkboxId).checked = false;
+      break;
+    }
+  }
+  enableAllCheckboxes();
+  let teamSection = document.getElementById("team");
+  let s1 = "<h3>Team</h3>";
+  s1 += "<ul>";
+  for (let i = 0; i < selectedApplicants.length; i++) {
+    s1 += '<li>' + selectedApplicants[i] + ' <button onclick="removeFromTeam(' + i + ')">x</button></li>';
+  }
+  s1 += "</ul>";
+  teamSection.innerHTML = s1;
+}
+
+    </script>
+  </body>
+</html>

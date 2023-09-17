@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+      }
+      th {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+      }
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="titleLine">Students</h2>
+    <div id="students"></div>
+    <button onclick="showStudents()">Show students</button>
+    <button onclick="getNewStudents()">New students</button>
+
+    <script>
+      let students = [
+        { name: "bob", maths: 82, computers: 88, code: "C++" },
+        { name: "jack", maths: 44, computers: 53, code: "java" },
+        { name: "mary", maths: 91, computers: 73, code: "python" },
+        { name: "dave", maths: 45, computers: 34, code: "javascript" },
+        { name: "julia", maths: 72, computers: 48, code: "c" },
+      ];
+      const codeOption = ["C++", "java", "javascript", "python", "c"];
+
+      function getNewStudents() {
+        let str = 'Name:<input type="text" id="name"><br/>';
+        str += 'Maths:<input type="text" id="maths"><br/>';
+        str += 'Computer:<input type="text" id="computers"><br/>';
+        str += makeCodeDD("code", codeOption, "Select Code", " ");
+        str += '<button onclick="addstudent()">Add students</button>';
+        let div = document.getElementById("students");
+        div.innerHTML = str;
+      }
+
+      function addstudent() {
+        let st = {};
+        st.name = document.getElementById("name").value;
+        st.maths = document.getElementById("maths").value;
+        st.computers = document.getElementById("computers").value;
+        st.code = document.getElementById("code").value;
+        students.push(st);
+        showStudents();
+      }
+
+      function edit(studentName) {
+        let st = students.find(function (st1) {
+          return st1.name == studentName;
+        });
+
+        let str =
+          'Name:<input type="text" id="name" value="' + st.name + '"readonly><br/>';// name is readable only because of readonly property
+        str +=
+          'Maths:<input type="text" id="maths" value="' + st.maths + '"><br/>';
+        str +=
+          'Computer:<input type="text" id="computers" value="' +
+          st.computers +
+          '"><br/>';
+        str += makeCodeDD("code", codeOption, "Select Code", st.code);
+        str += '<button onclick="saveEdit()">Save Edit</button>';
+        let div = document.getElementById("students");
+        div.innerHTML = str;
+      }
+
+      function saveEdit() {
+        let st = {};
+        st.name = document.getElementById("name").value;
+        st.maths = document.getElementById("maths").value;
+        st.computers = document.getElementById("computers").value;
+        st.code = document.getElementById("code").value;
+
+        let index = students.findIndex(function (s) {
+          return s.name == st.name;
+        });
+
+        if (index !== -1) {
+          students[index] = st;
+        }
+        showStudents();
+      }
+
+      function makeCodeDD(id, arr, firstItem, selVal) {
+        const arr1 = arr.map(function (opt) {
+          if (opt == selVal) {
+            return "<option selected>" + opt + "</option>";
+          } else {
+            return "<option>" + opt + "</option>";
+          }
+        });
+
+        let header = "<option>" + firstItem + "</option>";    // if  use disabled selected then C++ option appear first
+        if (selVal === "") {
+          header = "<option disabled selected>" + firstItem + "</option>";
+        }
+
+        let s1 = '<select id="' + id + '">' + header + arr1.join("") + "</select>";
+        return s1;
+      }
+
+      function showStudents() {
+        let tableHTML =
+          "<table>" +
+          "<tr><th>Name</th><th>Maths</th><th>Computers</th><th>Code</th><th>Edit</th></tr>";
+
+        students.map(function (student) {
+          tableHTML +=
+            "<tr><td>" +
+            student.name +
+            "</td><td>" +
+            student.maths +
+            "</td><td>" +
+            student.computers +
+            "</td><td>" +
+            student.code +
+            "</td><td>" +
+            "<button onclick=\"edit('" +
+            student.name +
+            "')\">Edit</button>" +
+            "</td></tr>";
+        });
+
+        tableHTML += "</table>";
+        document.getElementById("students").innerHTML = tableHTML;
+      }
+    </script>
+  </body>
+</html>

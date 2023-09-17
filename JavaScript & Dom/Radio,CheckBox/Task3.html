@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <input type="checkbox" id="check" onchange="Change()" />Use A different Email
+    id<br />
+    <div id="input"></div>
+    <script>
+      function Change() {
+        let ch = document.getElementById("check");
+        if (ch.checked == true) {
+          document.getElementById("input").innerHTML = '<input type="text" id="s2" placeholder="Enter the another email id" /> ';
+        } else {
+          document.getElementById("input").innerHTML = " ";
+        }
+      }
+    </script>
+  </body>
+</html>

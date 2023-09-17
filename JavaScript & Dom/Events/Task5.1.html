@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .td1 {
+        border: 1px solid black;
+      }
+
+      .table1 {
+        border: 2px solid black;
+        border-collapse: collapse;
+      }
+
+      .th1 {
+        cursor: pointer;
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <input type="text" id="inp" placeholder="Enter the filter string" oninput="TableFilter()"/><br /><br />
+
+    <div id="showList"></div>
+    <script>
+      let array = [
+        { name: "Jack", age: 28, city: "London", tech: "Node JS" },
+        { name: "Mary", age: 32, city: "Mumbai", tech: "React JS" },
+        { name: "Bob", age: 35, city: "New York", tech: "Angular JS" },
+        { name: "Steve", age: 26, city: "NewDelhi", tech: "Javascript JS" },
+        { name: "Edwards", age: 27, city: "Los Angeles", tech: "Node JS" },
+        { name: "Catherine", age: 31, city: "Montreal", tech: "React JS" },
+        { name: "Williams", age: 34, city: "New York", tech: "Android" },
+        { name: "John", age: 25, city: "Moscow", tech: "Java" },
+        { name: "Anna", age: 33, city: "Moscow", tech: "Node JS" },
+        { name: "Julia", age: 29, city: "New Jersey", tech: "Android" },
+      ];
+      let optionArr = ["Name Start With", "City Start With", "Tech Start With"];
+
+      function makeOptionDD(arr, firstItem) {
+        let options = arr.map(function (option) {
+          return `<option value="${option}">${option}</option>`;
+        });
+        return `<select id="filterOption"><option disabled selected>${firstItem}</option>${options.join("")}</select>`;
+      }
+
+      function TableFilter() {
+        var filterOption = document.getElementById("dd1").value;
+        var filterText = document.getElementById("inp").value.toLowerCase();
+
+        var filteredData = array;
+        if (filterOption && filterText) {
+          filteredData = array.filter(function (person) {
+            return person[filterOption].toLowerCase().startsWith(filterText);
+          });
+        }
+
+        showTable(filteredData);
+      }
+
+      function showTable(data) {
+        var arr = data.map(function (n) {
+          return (
+            "<tr class='tr1'>" +
+            "<td class='td1'>" +
+            n.name + "</td>" +"<td class='td1'>" +
+            n.age + "</td>" + "<td class='td1'>" +
+            n.city + "</td>" + "<td class='td1'>" + n.tech + "</td>" +
+            "</tr>"
+          );
+        });
+
+        var header =
+          "<tr>" +
+          "<th class='th1'>Name</th>" +
+          "<th class='th1'>Age</th>" +
+          "<th class='th1'>City</th>" +
+          "<th class='th1'>Tech</th>" +
+          "</tr>";
+
+        var element = document.getElementById("showList");
+        element.innerHTML =
+          "<table class='table1'>" + header + arr.join("") + "</table>";
+      }
+
+      showTable(array);
+    </script>
+  </body>
+</html>

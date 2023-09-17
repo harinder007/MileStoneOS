@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Technical Skills</title>
+</head>
+<body>
+    Share your Technical Skill
+    <div id="checkboxContainer">
+
+    </div>
+
+    <script>
+        const technologies = ['JavaScript', 'Python', 'Java', 'Android', 'iOS'];
+        const skillLevels = ['Beginner', 'Intermediate', 'Good', 'Excellent'];
+
+        function generateCheckboxes() {
+            const checkboxContainer = document.getElementById('checkboxContainer');
+
+            let checkboxesHTML = '';
+            technologies.map((technology) => {
+                checkboxesHTML += `<label><input type="checkbox" name="technologies" value="${technology}" onchange="Button('${technology}')"> ${technology}</label><br>`;
+                checkboxesHTML += `<span id="${technology}_radios"></span><br><br>`;
+            });
+
+            checkboxContainer.innerHTML = checkboxesHTML;
+        }
+
+        function Button(technology) {
+            const checkboxes = document.getElementsByName("technologies");
+            const radioButtonsContainer = document.getElementById(`${technology}_radios`);
+            let check = false;
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.value === technology && checkbox.checked) {
+                    check = true;
+                }
+            });
+
+            if (check) {
+                let radioButtonsHTML = skillLevels.map((level) => {
+                    return `<label><input type="radio" name="${technology}_skill" value="${level}" onchange="txtField('${technology}', '${level}')"> ${level} </label>`;
+                }).join('');
+                radioButtonsContainer.innerHTML = radioButtonsHTML;
+            } else {
+                radioButtonsContainer.innerHTML = '';
+                removeTextField(technology);
+            }
+        }
+
+        function txtField(technology, level) {
+            const radioButtonsContainer = document.getElementById(`${technology}_radios`);
+            const inputFieldContainers = radioButtonsContainer.getElementsByTagName('div');
+            const inputField = radioButtonsContainer.querySelector(`input[name="${technology}_project"]`);
+
+            if (level === 'Good' || level === 'Excellent') {
+                if (inputFieldContainers.length === 0) {
+                    radioButtonsContainer.insertAdjacentHTML('beforeend', `
+                        <div name="${technology}_project_container">
+                            <br><label for="${technology}_project">Share the Project Link:</label><br>
+                            <input type="text" name="${technology}_project">
+                        </div>
+                    `);
+                } else {
+                    inputFieldContainers[0].style.display = "block";
+                }
+            } else {
+                if (!(level === 'Good' || level === 'Excellent') && inputFieldContainers.length > 0) {
+                    inputFieldContainers[0].style.display = "none";
+                }
+            }
+        }
+
+        function removeTextField(technology) {
+            const radioButtonsContainer = document.getElementById(`${technology}_radios`);
+            const inputFieldContainers = radioButtonsContainer.getElementsByTagName('div');
+            if (inputFieldContainers.length > 0) {
+                inputFieldContainers[0].remove();
+            }
+        }
+
+        // Generate the initial checkboxes and radio buttons when the page loads
+        generateCheckboxes();
+    </script>
+</body>
+</html>

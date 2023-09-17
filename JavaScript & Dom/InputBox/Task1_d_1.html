@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <button onclick="getData()">Show form</button>
+    <div id="dispArea"></div>
+    <script>
+      const courses = ["full stack", "python", "java"];
+      let data = {};
+
+      function getData() {
+        let str = 'name:<input type="text" id="name"><br/>';
+        str += 'age:<input type="number" id="age"><br/>';
+        str += makeCourseDD(courses, "Choose course") + "<br/>";
+        str += "<button onclick='submit()'>Submit</button>";
+        let div = document.getElementById("dispArea");
+        div.innerHTML = str;
+      }
+
+      function makeCourseDD(arr, firstItem) {
+        let arr1 = arr.map(function (n) {
+          return "<option>" + n + "</option>";
+        });
+        let first = "<option disabled selected>" + firstItem + "</option>";
+        let s1 = '<select id="course">' + first + arr1.join("") + "</select>";
+        return s1;
+      }
+
+      function submit() {
+        data.name = document.getElementById("name").value;
+        data.age = document.getElementById("age").value;
+        data.course = document.getElementById("course").value;
+        let str = "<h3>Name: " + data.name + "</h3>";
+        str += "<h3>Age: " + data.age + "</h3>";
+        str += "<h3>Course: " + data.course + "</h3>";
+
+        let div = document.getElementById("dispArea");
+        div.innerHTML = str;
+      }
+    </script>
+  </body>
+</html>

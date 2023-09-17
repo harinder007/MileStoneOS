@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          border-collapse: collapse;
+          width: 15%;
+          margin-top: 10px;
+        }
+        td {
+          border: 1px solid #0d0d0d;
+          padding: 5px;
+          text-align: center;
+        
+        }
+        .remove-btn {
+          cursor: pointer;
+          align-items: center;
+       
+        }
+      </style>
+</head>
+<body>
+    <div>
+        <label for="Name">Name</label>
+        <input type="text" id="personName"><br>
+        <label for="Age">Age</label>
+        <input type="text" id="personAge"><br>
+        <label for="city">City</label>
+        <select id="personCity">
+            <option value="Select City">Select City</option>
+            <option value="London">London</option>
+            <option value="Paris">Paris</option>
+            <option value="Delhi">Delhi</option>
+            <option value="New York">New York</option>
+        </select><br>
+        <label for="technology">Technology</label>
+        <select id="personTechnology">
+            <option value="Select Technology">Select Tech</option>
+            <option value="Android">Android</option>
+            <option value="React">React</option>
+            <option value="Angular">Angular</option>
+            <option value="Spring">Spring</option>
+            <option value="Javascript">Javascript</option>
+        </select><br>
+        <button onclick="addPerson()">Add Person</button>
+        <button onclick="removePerson()">Remove Person</button>
+    </div>
+
+    <div id="display"></div>
+    <script>
+        let data = [
+            { name: "Jack", age: '28', city: 'London', technology: 'Android' },
+            { name: "Mary", age: '32', city: 'Paris', technology: 'React' },
+            { name: "Bob", age: '35', city: 'New York', technology: 'Angular' },
+            { name: "Steve", age: '26', city: 'Delhi', technology: 'Spring' }
+        ];
+
+        displayTable();
+
+        function addPerson() {
+            const personName = document.getElementById("personName").value;
+            const personAge = document.getElementById("personAge").value;
+            const personCity = document.getElementById("personCity").value;
+            const technology = document.getElementById("personTechnology").value;
+
+            // Check if person with the same name already exists
+            const existingPerson = data.find(function(person) {
+           return person.name === personName;
+        });
+
+           if (existingPerson) {
+           alert("Name already exists!");
+              return;
+                    }
+
+            // push data to main array
+            data.push({ name: personName, age: personAge, city: personCity, technology: technology });
+            displayTable();
+
+            // Clear input fields after adding the item
+            document.getElementById("personName").value = "";
+            document.getElementById("personAge").value = "";
+            document.getElementById("personCity").value = "";
+            document.getElementById("personTechnology").value = "";
+        }
+
+
+        function displayTable() {
+            let tableHTML = "<table>";
+            tableHTML += "<tr><th>Name</th><th>Age</th><th>City</th><th>Technology</th></tr>";
+            tableHTML += data.map(function (item, index) {
+                return (
+                    "<tr><td>" + item.name +
+                    "</td><td>" + item.age +
+                    "</td><td>" + item.city +
+                    "</td><td>" + item.technology + "</td></tr>"
+                );
+            }).join("");
+
+            tableHTML += "</table>";
+
+            let div = document.getElementById("display");
+            div.innerHTML = tableHTML;
+        }
+
+        function removePerson() {
+            
+            const personNameToRemove = document.getElementById("personName").value;
+            // Find the person with the given name
+            const personIndex = data.findIndex(function(person) {
+                  return  person.name === personNameToRemove
+                });
+
+            if (personIndex === -1) {  //If personIndex is equal to -1, it means that the person with the given name was not found 
+                alert("Person not found!");
+                return;
+            }
+
+            // Remove the person from the 'data' array
+            data.splice(personIndex, 1);
+
+            displayTable();
+        }
+    </script>
+</body>
+</html>

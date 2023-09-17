@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    What do you know--
+    <br />
+    <div id="checkbox"></div>
+    <script>
+      let arr = ["Javascript", "React", "Node"];
+
+      function checkbox(id, arr) {
+        let r1 = arr.map(function (val, index) {
+          return (
+            '<input type="checkbox" id="' + id + index + '">' + val + "<br/>"
+          );
+        });
+        return r1.join("");
+      }
+
+      document.getElementById("checkbox").innerHTML = checkbox("x", arr);
+    </script>
+  </body>
+</html>

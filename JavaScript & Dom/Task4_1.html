@@ -12,8 +12,8 @@
             width: 30%;
             border: 2px solid black;
         }
- 
-         .styled-table th,
+
+        .styled-table th,
         .styled-table td {
             border: 1px solid black;
             padding: 8px;
@@ -33,7 +33,7 @@
         .styled-row-usa {
             color: green;
         }
-  
+
         .styled-row-france {
             color: red;
         }
@@ -92,12 +92,13 @@
         }
 
         function sortTableByColumn(column) {
+        if (column === "age") {
+            people.sort((a, b) => a[column] - b[column]);
+        } else {
             people.sort((a, b) => a[column].localeCompare(b[column]));
-            showPeople();
         }
+        showPeople();
+    }
 
-        showPeople(); 
-    </script>
-</body>
-
-</html>
+    showPeople(); 
+</script>

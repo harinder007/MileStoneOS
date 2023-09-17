@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+        padding: 5px;
+          text-align: center;
+      }
+
+      table {
+        border-collapse: collapse;
+          width: 15%;
+          margin-top: 10px;
+      }
+
+      th {
+        cursor: pointer;
+        border: 1px solid black;
+      }
+      button{
+        cursor: pointer;
+          align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="getData"></div>
+    <div id="table"></div> <div id="manageCities" style="display: none;"></div>
+
+    <script>
+      let array = [
+            { name: "Jack", age: '28', city: 'London', technology: 'Android' },
+            { name: "Mary", age: '32', city: 'Paris', technology: 'React' },
+            { name: "Bob", age: '35', city: 'New York', technology: 'Angular' },
+            { name: "Steve", age: '26', city: 'Delhi', technology: 'Spring' }
+      ];
+      let cities = ["London", "Paris", "Delhi", "NewYork"];
+      let technlogies = ["Android", "React", "Angular", "Spring", "Javascript"];
+      function makeCodeDD(id, arr, firstItem, selVal) {
+        const arr1 = arr.map(function (opt) {
+          if (opt == selVal) {
+            return "<option selected>" + opt + "</option>";
+          } else {
+            return "<option>" + opt + "</option>";
+          }
+        });
+        let header = "<option disabled>" + firstItem + "</option>";
+        if (selVal === "") {
+          header = "<option disabled selected>" + firstItem + "</option>";
+        }
+        let s1 =
+          '<select id="' + id + '">' + header + arr1.join("") + "</select>";
+        return s1;
+      }
+
+      function getdata() {
+        let st = 'Name:<input type="text" id="name" ></input><br>';
+        st += 'Age:<input type="text" id="age"></input><br>';
+        st += makeCodeDD("city", cities, "Select city", "London");
+        st += makeCodeDD(
+          "technology",
+          technlogies,
+          "Select technology",
+          "React"
+        );
+        
+        st += '</br><button onclick="Adddetail()">Add person</button>';
+        st += '<button onclick="RemoveDetail()">Remove Person</button>';
+        st += '</br><button onclick="ManageCities()">Manage Cities</button>';
+        st += '<button onclick="ManageTech()">Manage Techs</button>';
+        document.getElementById("getData").innerHTML = st;
+      }
+      getdata();
+      function Adddetail() {
+        let st = {};
+
+        st.name = document.getElementById("name").value;
+        st.age = document.getElementById("age").value;
+        st.city = document.getElementById("city").value;
+        st.technology = document.getElementById("technology").value;
+
+        let personExists = array.some((n) => n.name === st.name);
+        if (personExists) {
+          alert("A person with the same name already exists.");
+        } else {
+          array.push(st);
+          showdata();
+        }
+      }
+
+function RemoveDetail(){
+  const personNameToRemove=document.getElementById("name").value;
+  const personIndex=array.findIndex(function(n){
+    return n.name===personNameToRemove
+  });
+  if(personIndex===-1){
+    alert("Person Not found!");
+    return;
+  }
+  array.splice(personIndex,1);
+  showdata();
+}
+
+//Manage cities
+function ManageCities() {
+    //let html="<h3>List of Cities:</h3>"
+        let cityList = cities
+          .map(function (city) {
+            let str = "<tr>";
+            str += "<td>" + city + "</td>";
+            str += '<td><button onclick="removeCity(\'' + city + '\')">Remove</button></td>';
+            str += "</tr>";
+            return str;
+          })
+          .join("");
+
+        let html = "<h3>List of Cities </h3>"+'<input type="text" id="newCity" placeholder="Enter new city">'+'</br>' +'<button onclick="addNewCity()">Add City</button>'  +"<table>" + cityList + "</table>"+'<button onclick="showMainForm()">Show Main Form</button>';
+        document.getElementById("manageCities").innerHTML = html;
+        document.getElementById("getData").style.display = "none";
+        document.getElementById("table").style.display = "none";
+        document.getElementById("manageCities").style.display = "block";
+        document.getElementById("manageTechs").style.display = "none";
+      }
+
+
+
+      function removeCity(cityName) {
+        let index = cities.indexOf(cityName);
+        if (index !== -1) {
+          cities.splice(index, 1);
+          ManageCities();
+        }
+      }
+      function addNewCity() {
+        let newCity = document.getElementById("newCity").value;
+        if (newCity.trim() !== "") {
+          cities.push(newCity);
+          ManageCities();
+        } else {
+          alert("Please enter a valid city name.");
+        }
+      }
+      function showMainForm() {
+        document.getElementById("getData").style.display = "block";
+        document.getElementById("table").style.display = "block";
+        document.getElementById("manageCities").style.display = "none";
+        document.getElementById("manageTechs").style.display = "none";
+      }
+
+
+      // Manage Tech
+      function ManageTech() {
+        let techList = technlogies.map(function (tech) {
+          let str = "<tr>";
+          str += "<td>" + tech + "</td>";
+          str += '<td><button onclick="removeTech(\'' + tech + '\')">Remove</button></td>';
+          str += "</tr>";
+          return str;
+        }).join("");
+        
+
+        let html = "<table>" + techList + "</table>";
+        document.getElementById("manageTechs").innerHTML = html;
+        document.getElementById("getData").style.display = "none";
+        document.getElementById("table").style.display = "none";
+        document.getElementById("manageCities").style.display = "none";
+        document.getElementById("manageTechs").style.display = "block";
+      }
+
+
+
+
+      function showdata() {
+        let arr = array.map(function (n) {
+          let str = "<tr>";
+          str += "<td>" + n.name + "</td>";
+          str += "<td>" + n.age + "</td>";
+          str += "<td>" + n.city + "</td>";
+          str += "<td>" + n.technology + "</td>";
+          str += "</tr>";
+          return str;
+        });
+        let str1 = "<tr>";
+        str1 += "<th>Name</th>";
+        str1 += "<th>age</th>";
+        str1 += "<th>city</th>";
+        str1 += "<th>technology</th>";
+        str1 += "</tr>";
+        let html = "<table>" + str1 + arr.join("") + "</table>";
+        document.getElementById("table").innerHTML = html;
+      }
+      showdata();
+    </script>
+  </body>
+</html>

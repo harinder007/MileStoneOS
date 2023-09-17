@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    What do you Know best <br>
+    <input type="radio" name="tech" value="Javascript" id="r1">Javascript <br>
+    <input type="radio" name="tech" value="React" id="r2">React <br>
+    <input type="radio" name="tech" value="Angular" id="r3">Angular<br>
+    <button onclick="showChecked()">Show Checked value</button>
+    <script>
+function showChecked(){
+    // get element by id
+    let value=""
+    let r1=document.getElementById("r1")
+    if(r1.checked){
+        value=r1.value;
+    }
+
+    let r2=document.getElementById("r2")
+    if(r2.checked){
+        value=r2.value;
+    }
+
+    let r3=document.getElementById("r3")
+    if(r3.checked){
+        value=r3.value;
+    }
+    console.log(value)
+}
+    </script>
+</body>
+</html>

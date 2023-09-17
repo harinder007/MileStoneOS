@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #personName {
+        color: red;
+      }
+      #ChooseAge {
+        color: red;
+      }
+      #cityDiv,
+      #chooseTech {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    Name:<input type="text" id="name" onkeyup="add()" /><br />
+    <div id="personName"></div>
+    Age:<input type="text" id="age" onkeyup="add()" /><br />
+    <div id="ChooseAge"></div>
+    City:<input type="text" id="city" onkeyup="add()" /><br />
+    <div id="cityDiv"></div>
+    Technology:<input type="text" id="tech" onkeyup="add()" />
+    <div id="chooseTech"></div>
+    <button id="btn" onclick="add()">Add person</button>
+    <script>
+      let arr = [];
+
+      let array = [
+        { name: "Jack", age: 28, city: "London", tech: "Android" },
+        { name: "Mary", age: 32, city: "Paris", tech: "React" },
+        { name: "Bob", age: 35, city: "New York", tech: "Angular" },
+        { name: "Steve", age: 26, city: "Delhi", tech: "Spring" },
+      ];
+
+      let nameValid = false;
+      let ageValid = false;
+      let cityValid = false;
+      let techValid = false;
+
+      function add() {
+        let person = document.getElementById("name").value;
+        let nameValue = document.getElementById("personName");
+        let found = false;
+
+        for (let i = 0; i < array.length; i++) {
+          if (person === array[i].name) {
+            nameValue.innerHTML = "Person with the same name exists";
+            found = true;
+            document.getElementById("btn").disabled = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          nameValue.innerHTML = "";
+          arr.push(person);
+        }
+
+        let age1 = document.getElementById("age").value;
+        let nage = document.getElementById("ChooseAge");
+
+        if (age1 < 18) {
+          nage.innerHTML = "Minimum age should be 18";
+          document.getElementById("btn").disabled = true;
+        } else {
+
+          
+          nage.innerHTML = "";
+          arr.push(age1);
+        }
+
+        let city1 = document.getElementById("city").value;
+        let cityValue = document.getElementById("cityDiv");
+        let cfound = false;
+
+        for (let i = 0; i < array.length; i++) {
+          if (city1.toLowerCase() === array[i].city.toLowerCase()) {
+            cfound = true;
+            break;
+          }
+        }
+
+        if (!cfound) {
+          cityValue.innerHTML = "Enter a city from London, Paris, New York, Delhi";
+          document.getElementById("btn").disabled = true;
+        } else {
+          cityValue.innerHTML = "";
+          arr.push(city1);
+        }
+
+        let tech1 = document.getElementById("tech").value;
+        let techValue = document.getElementById("chooseTech");
+        let tfound = false;
+
+        for (let i = 0; i < array.length; i++) {
+          if (tech1.toLowerCase() === array[i].tech.toLowerCase()) {
+            tfound = true;
+            break;
+          }
+        }
+
+        if (!tfound) {
+          techValue.innerHTML =
+            "Enter a technology from Android, React, Angular, Spring";
+          document.getElementById("btn").disabled = true;
+        } else {
+          techValue.innerHTML = "";
+          arr.push(tech1);
+          document.getElementById("btn").disabled = false;
+        }
+        
+      }
+
+      //console.log(arr);
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="t1" onkeyup="updateList(this)"><br>
+    <div id="d1"></div>
+    <script>
+        const words=["Age","Again","About","Bat","Ball","Ballon","Bear"];
+        updateList(document.getElementById("t1"));
+        function updateList(elem){
+            let txt=elem.value;
+            const list1=words.filter(function(n){
+                return n.startsWith(txt)
+            })
+            const arr1= list1.map(function(wbbbbbbbbbbbbbbbbbbbbbbbbbbbbg1){
+                return w1+"</br>"
+            })
+
+            arr1.unshift("Number of words is "+list1.length+"<br/>") // used to print the message 
+            let div1=document.getElementById("d1")
+            d1.innerHTML=arr1.join("");
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Technical Skills</title>
+   
+</head>
+<body>
+    Share your Technical Skill
+    <div id="checkboxContainer">
+
+    </div>
+
+    <script>
+        const technologies = ['JavaScript', 'Python', 'Java', 'Android', 'iOS'];
+        const skillLevels = ['Beginner', 'Intermediate', 'Good', 'Excellent'];
+
+        function generateCheckboxes() {
+            const checkboxContainer = document.getElementById('checkboxContainer');
+
+            // Generate checkboxes based on the technologies array
+            let checkboxesHTML = '';
+            technologies.forEach((technology) => {
+                checkboxesHTML += `<label><input type="checkbox" name="technologies" value="${technology}" onchange="toggleRadioButtons('${technology}')" > ${technology}</label><br>`;
+                checkboxesHTML += `<span id="${technology}_radios"></span><br><br>`;
+            });
+
+            checkboxContainer.innerHTML = checkboxesHTML;
+        }
+
+        function toggleRadioButtons(technology) {
+            const checkboxes = document.querySelectorAll(`input[name="technologies"][value="${technology}"]`);
+            const radioButtonsContainer = document.getElementById(`${technology}_radios`);
+            const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if (isChecked) {
+                let radioButtonsHTML = skillLevels.map((level) => {
+                    return `<label><input type="radio" name="${technology}_skill" value="${level}"> ${level} </label>`;
+                }).join('');
+                radioButtonsContainer.innerHTML = radioButtonsHTML;
+            } else {
+                radioButtonsContainer.innerHTML = '';
+            }
+        }
+
+        // Generate the initial checkboxes and radio buttons when the page loads
+        generateCheckboxes();
+    </script>
+</body>
+</html>

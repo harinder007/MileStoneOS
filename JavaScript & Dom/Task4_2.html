@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 30%;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #080808;
+        }
+        
+        th {
+            background-color: #d913df;
+            color: #ddd;
+            cursor: pointer;
+        }
+    
+        td {
+            border-right: 1px solid #0f0f0f;
+            border: 1px solid rgb(14, 13, 13);
+        }
+        
+        .score75, .total150 {
+            background-color: rgb(78, 220, 101);
+        }
+        
+        .score50, .total100 {
+            background-color: aqua;
+        }
+        .red{
+            background-color: red;
+        }
+
+        .remove-button {
+            background-color: #e64e4e;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .remove-button:hover {
+            background-color: #3565cb;
+        }
+    </style>
+</head>
+<body>
+    <h2>List of People</h2>
+    <div id="people"></div>
+    <button onclick="newfun()">Country</button>
+    <button onclick="age()">Age</button>
+    
+    <script>
+        let highLightAge = false;
+        let highlightCountry = false;
+        let people = [
+            {"name": "Jack", "country": "USA", "age": 35},
+            {"name": "Amit", "country": "India", "age": 38},
+            {"name": "Edward", "country": "USA", "age": 41},
+            {"name": "Vishal", "country": "India", "age": 30},
+            {"name": "Annie", "country": "USA", "age": 27},
+            {"name": "Nick", "country": "France", "age": 32},
+            {"name": "Francis", "country": "France", "age": 44},
+            {"name": "Preeti", "country": "India", "age": 25},
+            {"name": "Sophie", "country": "France", "age": 29},
+            {"name": "Harpreet", "country": "India", "age": 48},
+            {"name": "Bob", "country": "USA", "age": 21}
+        ];
+
+        function showPeople() {
+            const arr1 = people.map(function(n) {
+                let str = '<tr class=\'' + getPeople(n) + '\'>';
+                str += '<td>' + n.name + '</td>';
+                str += '<td class=\''  + getPeople(n) + '\'>' + n.country + '</td>';
+                str += '<td class=\'' + country(n) + '\'>' + n.age + '</td>';
+                str += '<td><button class="remove-button" onclick="remove(\'' + n.name + '\')">Remove</button></td>';
+                str += '</tr>';
+                return str;
+            });
+
+            let header = '<tr>';
+            header += '<th onclick="sort(0)">Name</th>';
+            header += '<th onclick="sort(1)">Country</th>';
+            header += '<th onclick="sort(2)">Age</th>';
+            header += '<th>Remove</th>';
+            header += '</tr>';
+
+            let html = '<table>' + header + arr1.join('') + '</table>';
+            let element = document.getElementById("people");
+            element.innerHTML = html;
+        }
+
+        function country(st) {
+            if (st.age >= 40 && highLightAge)
+                return 'score75';
+            else if (st.age <= 25 && highLightAge)
+                return 'score50';
+            else
+                return '';
+        }
+
+        function getPeople(st) {
+            if (st.country === 'USA' && highlightCountry)
+                return 'total150';
+            else if (st.country === 'France' && highlightCountry)
+                return 'total100';
+            else if (st.country === 'India' && highlightCountry)
+                return 'red';
+            return '';
+        }
+
+        function age() {
+            highLightAge = true;
+            highlightCountry = false;
+            showPeople();
+        }
+
+        function newfun() {
+            highLightAge = false;
+            highlightCountry = true;
+            showPeople();
+        }
+
+        function sort(colno) {
+            if (colno === 0) {
+                people.sort(sortName);
+            }
+            else if (colno === 1) {
+                people.sort(sortCountry);
+            }
+            else {
+                people.sort(sortAge);
+            }
+            showPeople();
+        }
+
+        function sortName(s1, s2) {
+            return s1.name.localeCompare(s2.name);
+        }
+
+        function sortCountry(s1, s2) {
+            return s1.country.localeCompare(s2.country);
+        }
+
+        function sortAge(s1, s2) {
+            return s1.age - s2.age;
+        }
+
+        function remove(name) {
+            people = people.filter(function(person) {
+                return person.name !== name;
+            });
+            showPeople();
+        }
+
+
+        showPeople();
+    </script>
+</body>
+</html>

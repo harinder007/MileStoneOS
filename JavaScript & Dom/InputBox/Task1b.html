@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <!---- <select  id="One", disabled> ---->
+        <select  id="One">
+        <option disabled>Please Select</option>
+        <option value="1">JavaScript</option>
+        <option selected value="2">React</option>  <!--seleted is use to preselected value -->
+        <option value="3">Java</option>
+    </select>
+
+
+    <select  id="Two">
+        <option disabled>Please Select</option>
+        <option >Html</option>
+        <option >Css</option>
+        <option >NodeJs</option>
+    </select>
+
+
+    <button onclick="display()">Display</button>
+
+<script>
+    function display(){
+        let dd1=document.getElementById('One');
+        console.log(dd1.value);
+       // dd1.disabled=false;
+       dd1.value='1'  // use to show preselected value
+
+        let dd2=document.getElementById('Two');
+        console.log(dd2.value);
+        dd2.value='Html'   // show pre selected value
+    }
+</script>
+
+</body>
+</html>

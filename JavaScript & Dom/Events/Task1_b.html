@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+.errMsg{
+    background-color: rgb(177, 91, 91);
+}
+</style>
+</head>
+<body>
+    Text 1: <input type="text" id="txt1" placeholder="enter the name" onblur="check(this)"><br>
+    <div id="d1"></div>
+    <button id="btn1">Submit</button>
+    <script>
+        function check(elem){
+            let txtField=document.getElementById("txt1")
+            let txt=txtField.value;
+            if(txt.length<6){
+                let errDiv=document.getElementById("d1");
+                errDiv.innerHTML="Name should be atleat 6 Chars"
+                errDiv.className="errMsg"
+                let btn=document.getElementById("btn1")
+                btn.disabled=true;
+            }
+            else{
+
+                let errDiv=document.getElementById("d1");
+                errDiv.innerHTML=""
+                errDiv.className=""
+                let btn=document.getElementById("btn1")
+                btn.disabled=false;
+
+            }
+        }
+
+    </script>
+</body>
+</html>

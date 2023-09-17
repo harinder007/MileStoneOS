@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="divDD"></div>
+    <button onclick="clickfunction()">Make DD</button>
+    <script>
+        let empData = [
+            { name: 'Steve', empId: 'BM222' },
+            { name: 'John', empId: 'HR123' },
+            { name: 'Alice', empId: 'IT456' },
+            { name: 'Emily', empId: 'SA789' },
+            { name: 'Michael', empId: 'MK333' },
+        ];
+
+        function clickfunction() {
+            let div = document.getElementById('divDD');
+            let html = clickfunctionOption(empData, 'Select Employee', 'John'); // add preselected
+            div.innerHTML = html;
+        }
+
+        function clickfunctionOption(arr, valOnTop, selVal) {
+            const optArr = arr.map(function(n) {
+                if (n.empId === selVal) {
+                    return '<option selected vlaue=\''+n.empId+'\'>' + n.name + '</option>';
+                } else {
+                    return '<optionvlaue=\''+n.empId+'\'>'+ n.name + '</option>';
+                }
+            });
+
+            let topStr = '';
+            if (selVal === '') {
+                topStr = '<option selected disabled>' + valOnTop + '</option>';
+            } else {
+                topStr = '<option disabled>' + valOnTop + '</option>';
+            }
+            return '<select>' + topStr + optArr.join('') + '</select>';
+        }
+    </script>
+</body>
+</html>

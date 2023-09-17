@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      Name: <input type="text" id="name" /> Quantity:
+      <input type="number" id="quantity" />
+      <button onclick="addOrUpdateProduct()" id="addOrUpdateBtn">
+        Add Product
+      </button>
+      <input type="hidden" id="updateIndex" value="" />
+    </div>
+
+    <table id="productTable">
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Action</th>
+      </tr>
+    </table>
+
+    <script>
+      let product = [
+        { prod: "maggi", qty: 5 },
+        { prod: "cake", qty: 2 },
+        { prod: "chocolate", qty: 10 },
+      ];
+
+      function showProducts() {
+        let table = document.getElementById("productTable");
+        table.innerHTML =
+          "<tr><th>Name</th><th>Quantity</th><th>Action</th></tr>";
+
+        product.forEach((p, index) => {
+          table.innerHTML +=
+            "<tr><td>" +
+            p.prod +
+            "</td><td>" +
+            p.qty +
+            "</td><td><button onclick='editProduct(" +
+            index +
+            ")'>Edit</button><button onclick='removeProduct(" +
+            index +
+            ")'>Remove</button></td></tr>";
+        });
+      }
+
+      function addOrUpdateProduct() {
+        let name = document.getElementById("name").value;
+        let quantity = document.getElementById("quantity").value;
+
+        if (name && quantity) {
+          let updateIndex = document.getElementById("updateIndex").value;
+          if (updateIndex !== "") {
+            product[updateIndex].prod = name;
+            product[updateIndex].qty = quantity;
+            document.getElementById("updateIndex").value = "";
+            document.getElementById("addOrUpdateBtn").innerText = "Add Product";
+          } else {
+            product.push({ prod: name, qty: quantity });
+          }
+
+          showProducts();
+          document.getElementById("name").value = "";
+          document.getElementById("quantity").value = "";
+        } else {
+          alert("Please enter both name and quantity.");
+        }
+      }
+
+      function removeProduct(index) {
+        product.splice(index, 1);
+        showProducts();
+      }
+
+      function editProduct(index) {
+        document.getElementById("name").value = product[index].prod;
+        document.getElementById("quantity").value = product[index].qty;
+        document.getElementById("updateIndex").value = index;
+        document.getElementById("addOrUpdateBtn").innerText = "Update";
+      }
+
+      showProducts();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sports Selection Form</title>
+</head>
+<body>
+  <h2>Student Sports Selection</h2>
+  <form id="studentForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label>Sport:</label><br>
+    <div id="sportOptions"></div><br>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    const sports = ["Cricket", "Football", "Basketball", "Badminton", "Table Tennis"];
+    let studentsArray = [];
+
+    // Function to create the radio options 
+    function createSportRadios() {
+      const options = sports.map((sport) => {
+        return `
+          <input type="radio" name="sport" value="${sport}" required>
+          <label for="${sport}">${sport}</label><br>
+        `;
+      }).join('');
+
+      document.getElementById("sportOptions").innerHTML = options;
+    }
+
+    // Function to handle the form submission
+    function submitForm() {
+      const form = document.getElementById("studentForm");
+      const name = form.elements["name"].value;
+      const sport = form.elements["sport"].value;
+
+      const student = {
+        name: name,
+        sport: sport,
+      };
+
+      studentsArray.push(student);
+      // Clear the input fields manually
+      form.elements["name"].value = '';
+      const sportOptions = form.elements["sport"];
+      for (let i = 0; i < sportOptions.length; i++) {
+        sportOptions[i].checked = false;
+      }
+
+      console.log("Student Data:", student);
+      console.log("Updated Students Array:", studentsArray);
+    }
+
+    // Call the function to create sport radio options 
+    createSportRadios();
+  </script>
+</body>
+</html>

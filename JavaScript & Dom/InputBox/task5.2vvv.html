@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+      }
+
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      th {
+        cursor: pointer;
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="productTable"></div>
+    <button onclick="shows()">Show Product Master</button>
+    <button onclick="addNewProduct()">Add new product</button>
+    <button onclick="purchaseMastertable()">Show Purchase Master</button>
+
+    <script>
+      let productMaster = [
+        {
+          productName: "Smartphone",
+          category: "Electronics",
+          buyPrice: 300,
+          sellingPrice: 400,
+        },
+        {
+          productName: "Laptop",
+          category: "Electronics",
+          buyPrice: 600,
+          sellingPrice: 800,
+        },
+        {
+          productName: "T-Shirt",
+          category: "Fashion",
+          buyPrice: 20,
+          sellingPrice: 30,
+        },
+        {
+          productName: "Jeans",
+          category: "Fashion",
+          buyPrice: 35,
+          sellingPrice: 50,
+        },
+      ];
+
+      let purchaseMaster = [
+        {
+          productName: "Smartphone",
+          quantity: 10,
+          price: 10,
+        },
+        {
+          productName: "Laptop",
+          quantity: 5,
+          price: 15,
+        },
+        {
+          productName: "T-Shirt",
+          quantity: 50,
+          price: 7,
+        },
+        {
+          productName: "Jeans",
+          quantity: 30,
+          price: 12,
+        },
+      ];
+
+      function purchaseMastertable() {
+        let arr = purchaseMaster.map(function (n) {
+          let str = "<tr>";
+          str += "<td>" + n.productName + "</td>";
+          str += "<td>" + n.quantity + "</td>";
+          str += "<td>" + n.price + "</td>";
+          str += "<td>" + n.quantity * n.price + "</td>";
+          str += "</tr>";
+          return str;
+        });
+        let str1 = "<tr>";
+        str1 += "<th >productName</th>";
+        str1 += '<th ">Quantity</th>';
+        str1 += '<th ">Price</th>';
+        str1 += '<th ">Value</th>';
+        str1 += "</tr>";
+
+        let html = "<table>" + str1 + arr.join("") + "</table>";
+        document.getElementById("productTable").innerHTML = html;
+      }
+
+      function shows() {
+        let s1 = productMasterTable();
+        document.getElementById("productTable").innerHTML = s1;
+      }
+
+      function productMasterTable() {
+        let arr = productMaster.map(function (n) {
+          let str = "<tr>";
+          str += "<td>" + n.productName + "</td>";
+          str += "<td>" + n.category + "</td>";
+          str += "<td>" + n.buyPrice + "</td>";
+          str += "<td>" + n.sellingPrice + "</td>";
+          str += "</tr>";
+          return str;
+        });
+        let str1 = "<tr>";
+        str1 += "<th >productName</th>";
+        str1 += '<th ">category</th>';
+        str1 += '<th ">buyPrice</th>';
+        str1 += '<th ">sellingprice</th>';
+        str1 += "</tr>";
+
+        let html = "<table>" + str1 + arr.join("") + "</table>";
+        return html;
+      }
+
+      function makeCodeDD(id, arr, firstItem, selVal) {
+        const arr1 = arr.map(function (opt) {
+          if (opt === selVal) {
+            return "<option selected>" + opt + "</option>";
+          } else {
+            return "<option>" + opt + "</option>";
+          }
+        });
+        let header = "<option disabled>" + firstItem + "</option>";
+        if (selVal === "") {
+          header = "<option disabled selected>" + firstItem + "</option>";
+        }
+        let s1 =
+          '<select id="' + id + '">' + header + arr1.join("") + "</select>";
+        return s1;
+      }
+
+      let arrcategory = ["food", "Soap", "shampoo", "Toothpaste"];
+      function addNewProduct() {
+        let s1 = 'New product Name<input type="text" id="name"/><br>';
+        s1 += makeCodeDD("category", arrcategory, "Select Category", "");
+        s1 += 'Buy price:<input type="number" id="buy"/><br>';
+        s1 += 'Selling Price<input type="number" id="sell"/><br>';
+        s1 += '<button onclick="addProduct()">Add</button>';
+        document.getElementById("productTable").innerHTML = s1;
+      }
+
+      function addProduct() {
+        let ob = {};
+        ob.productName = document.getElementById("name").value;
+        ob.category = document.getElementById("category").value;
+        ob.buyPrice = parseFloat(document.getElementById("buy").value);
+        ob.sellingPrice = parseFloat(document.getElementById("sell").value);
+        productMaster.push(ob);
+        shows();
+      }
+    </script>
+  </body>
+</html>
