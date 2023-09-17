@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Choose the Subject <br>
+    <input type="checkbox" id="S1">Mathematics<br>
+    <input type="checkbox" id="S2">Physics <br>
+    <input type="checkbox" id="S3">Chemistry<br>
+    <input type="checkbox" id="S4">English<br>
+
+    <button onclick="showChecked()">Submit Button</button><br>
+
+    <script>
+        function showChecked() {
+            let S1 = document.getElementById("S1");
+            let S2 = document.getElementById("S2");
+            let S3 = document.getElementById("S3");
+            let S4 = document.getElementById("S4");
+
+            console.log("S1", S1.checked);
+            console.log("S2", S2.checked);
+            console.log("S3", S3.checked);
+            console.log("S4", S4.checked);
+        }
+    </script>
+</body>
+</html>

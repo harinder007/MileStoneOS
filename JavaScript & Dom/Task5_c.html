@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="showdata"></div>
+    <script>
+        let riders=[
+            {rider:'Jack',store:'Dominos'},
+            {rider:'Bob',store:'Pzza'},
+            {rider:'Steve',store:'Burger King'},
+            {rider:'George',store:'pizza Wing'},
+        ];
+
+        let feedback=[]; 
+
+        show();
+        function show(){
+            let s1=showRiders();
+            let s2=showFeedback();
+            let element=document.getElementById('showdata');
+            element.innerHTML=s1+s2;
+
+        }
+
+
+        function showRiders() {
+    let rMap = riders.map(function (ele) {
+        str = '<tr>';
+        str += '<td>' + ele.rider + '</td>';
+        str += '<td>' + ele.store + '</td>';
+        str += '<td><button onclick="like(\'' + ele.rider + '\', true)">Like</button></td>';
+        str += '<td><button onclick="like(\'' + ele.rider + '\', false)">Dislike</button></td>';
+        str += '</tr>';
+        return str;
+    });
+
+            let header='<tr>';
+            header+='<th>Nmae</th>';
+            header+='<th>Store</th>';
+            header+='<th>Like</th>';
+            header+='<th>Dislike</th>';
+            let html='<h2>List of Riders</h2>';
+            header+= '</tr>';
+            html+='<table>'+header+rMap.join('')+'</table>';
+            return html;
+        }
+
+        function showFeedback(){
+            let fMap=feedback.map(function(ele){
+                
+                str='<tr>';
+                str+='<td>'+ele.rider+'</td>';
+                str+='<td>'+ele.store+'</td>';
+                str+='<td>'+ele.likes+'</td>';
+                str+='<td>'+ele.dislikes+'</td>';
+                //adding remove button
+                str += '<td><button onclick="remove(\'' + ele.rider + '\')">Remove</button></td>';
+
+                str += '</tr>';
+            return str;
+            })
+
+            let header='<tr>';
+            header+='<th>Name</th>';
+            header+='<th>Store</th>';
+            header+='<th>Like</th>';
+            header+='<th>DisLike</th>';
+            header+='<th></th>';
+            
+            header+= '</tr>';
+            let html='<h2>Details of Likes</h2>';
+            if(feedback.length==0)
+            html+='<h3>No feedback has been received</h3>'
+            else{
+                // count the no. of like
+                let countlikes=feedback.reduce(function(acc,curr){
+                    return acc+curr.likes
+                },0)
+                // count the no. of dislike
+                let countdislikes=feedback.reduce(function(acc,curr){
+                    return acc+curr.dislikes
+                },0)
+
+                html+='<h3>Number of likes: '+countlikes+'  Number of dislikes :'+countdislikes+ '</h3>'
+                html+='<table>'+header+fMap.join('')+'</table>';
+            }
+           
+            return html;
+        }
+
+        function like(rider,islike){
+            let r1=feedback.find(function(n){
+                return n.rider==rider;
+            });
+            if(r1)
+            {
+                if(islike){
+                    r1.likes++;             
+                   }
+                   else
+                  r1.dislikes++
+            }
+            else{
+                let rider1=riders.find(function(n){
+                    return n.rider==rider;
+                })
+                let item ={ rider:rider1.rider,store:rider1.store,likes:0,dislikes:0}
+                if(islike)
+                item.likes=1;
+                else
+                item.dislikes=1;
+                feedback.push(item)
+            }
+            show();
+        }
+
+        function remove(rider){
+            let index=feedback.findIndex(function(n){
+                return n.rider==rider;
+
+            })
+            if(index>=0)
+            feedback.splice(index,1);
+            show()
+        }
+
+
+    </script>
+</body>
+</html>

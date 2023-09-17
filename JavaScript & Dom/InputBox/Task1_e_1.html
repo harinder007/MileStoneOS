@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 1px solid black;
+      }
+      th {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+      }
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="titleLine">Students</h2>
+    <div id="students"></div>
+    <button onclick="showStudents()">Show students</button>
+    <button onclick="getNewStudents()">New students</button>
+
+    <script>
+      let students = [
+        { name: "bob", maths: 82, computers: 88, code: "C++" },
+        { name: "jack", maths: 44, computers: 53, code: "java" },
+        { name: "mary", maths: 91, computers: 73, code: "python" },
+        { name: "dave", maths: 45, computers: 34, code: "javascript" },
+        { name: "julia", maths: 72, computers: 48, code: "c" },
+      ];
+
+      function showStudents() {
+        let tableHTML =
+          "<table>" +
+          "<tr><th>Name</th><th>Maths</th><th>Computers</th><th>Code</th></tr>";
+
+        students.map(function (student) {
+          tableHTML +=
+            "<tr><td>" +
+            student.name +
+            "</td><td>" +
+            student.maths +
+            "</td><td>" +
+            student.computers +
+            "</td><td>" +
+            student.code +
+            "</td></tr>";
+        });
+
+        tableHTML += "</table>";
+        document.getElementById("students").innerHTML = tableHTML;
+      }
+    </script>
+  </body>
+</html>

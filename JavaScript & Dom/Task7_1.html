@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+        
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3d0be453;
+        }
+
+        button {
+            background-color: #319d36;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #72e277;
+        }
+    </style>
+</head>
+<body>
+    <div id="showdata"></div>
+    <script>
+        let products = [
+            { prod: 'Pepsi', price: 15, stock: 20 },
+            { prod: 'Coke', price: 18, stock: 30 },
+            { prod: 'Maggi', price: 10, stock: 35 },
+            { prod: 'Nescafe', price: 40, stock: 10 },
+            { prod: 'Dairy Milk', price: 30, stock: 12 },
+            { prod: 'Frito Lays', price: 20, stock: 15 }
+        ];
+
+        show();
+
+        function show() {
+            let s1 = showResult();
+            let element = document.getElementById('showdata'); 
+            element.innerHTML = s1;
+        }
+
+        function showResult() {
+            let rMap = products.map(function (n) {
+                let str = '<tr>';
+                str += '<td>' + n.prod + '</td>';
+                str += '<td>' + n.price + '</td>';
+                str += '<td>' + n.stock + '</td>';
+                str += '<td><button onclick="cart(\'' + n.prod + '\')">Add to Cart</button></td>';
+                str += '</tr>';
+                return str;
+            });
+
+            let header = '<tr>';
+            header += '<th>Product</th>';
+            header += '<th>Price</th>';
+            header += '<th>Stock</th>';
+            header += '<th></th>';
+            header += '</tr>';
+            let html = '<h2>List of Products</h2>';
+            html += '<table>' + header + rMap.join('') + '</table>';
+            return html;
+        }
+
+        
+    </script>
+</body>
+</html>

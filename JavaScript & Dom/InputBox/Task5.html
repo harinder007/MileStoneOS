@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    td {
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th {
+      cursor: pointer;
+      border: 1px solid rgb(97, 94, 94);
+      background-color: rgb(79, 73, 73);
+      color: white;
+    }
+    #container {
+      padding-top: 25px;
+    }
+  </style>
+</head>
+<body>
+<div id="buttons">
+  <button onclick="shows()">Product Master</button>
+  <button onclick="addNewProduct()">New Product</button>
+  <button onclick="addpurchase()">Add Purchase product</button>
+  <button onclick="purchaseMastertable()">Show Purchase Master</button>
+</div>
+
+<!-- Separate div to contain the table -->
+<div id="container">
+  <div id="productTable"></div>
+</div>
+
+<script>
+  let productMaster = [
+    {"productName": "Smartphone", "category": "Electronics", "buyPrice": 200, "sellingPrice": 300},
+    {"productName": "Laptop", "category": "Electronics", "buyPrice": 600, "sellingPrice": 800},
+    {"productName": "T-Shirt", "category": "Fashion", "buyPrice": 20, "sellingPrice": 30},
+    {"productName": "Jeans", "category": "Fashion", "buyPrice": 35, "sellingPrice": 50}
+  ];
+
+  let purchaseMaster = []; // initially it is empty after adding product it will appear
+
+  function shows() {
+    let s1 = productMasterTable();
+    document.getElementById("productTable").innerHTML = s1;
+  }
+
+  function productMasterTable() {
+    let arr = productMaster.map(function (n) {
+      let str = "<tr>";
+      str += "<td>" + n.productName + "</td>";
+      str += "<td>" + n.category + "</td>";
+      str += "<td>" + n.buyPrice + "</td>";
+      str += "<td>" + n.sellingPrice + "</td>";
+      str += "</tr>";
+      return str;
+    });
+
+    let str1 = "<tr>";
+    str1 += "<th>Product Name</th>";
+    str1 += "<th>Category</th>";
+    str1 += "<th>Buy Price</th>";
+    str1 += "<th>Selling Price</th>";
+    str1 += "</tr>";
+
+    let html = "<table>" + str1 + arr.join("") + "</table>";
+    return html;
+  }
+
+  function makeCodeDD(id, arr, firstItem, selVal) {
+    const arr1 = arr.map(function (opt) {
+      if (opt === selVal) {
+        return "<option selected>" + opt + "</option>";
+      } else {
+        return "<option>" + opt + "</option>";
+      }
+    });
+    let header = "<option disabled>" + firstItem + "</option>";
+    if (selVal === "") {
+      header = "<option disabled selected>" + firstItem + "</option>";
+    }
+    let s1 =
+      '<select id="' + id + '">' + header + arr1.join("") + "</select>";
+    return s1;
+  }
+
+  function addProduct() {
+    let productName = document.getElementById("name").value;
+
+    // Check if the product already exists in the productMaster array
+    let existingProduct = productMaster.find(
+      (product) => product.productName === productName
+    );
+
+    if (existingProduct) {
+      // Product already exists, show an alert message
+      alert("Product already exists!");
+    } else {
+      // Product doesn't exist, add it to the productMaster array
+      let st = {};
+      st.productName = productName;
+      st.category = document.getElementById("category").value;
+      st.buyPrice = +document.getElementById("buy").value;
+      st.sellingPrice = +document.getElementById("sell").value;
+
+      productMaster.push(st);
+      updatePurchaseCategory(); // Call the function to update the purchase category dropdown options
+      shows(); // Refresh the productMaster table
+    }
+  }
+
+  function updatePurchaseCategory() {
+    purcategory = productMaster.map((product) => product.productName);
+  }
+
+  function purchaseMastertable() {
+    if (purchaseMaster.length === 0) {
+      // If purchaseMaster is empty, display a message or any desired content
+      document.getElementById("productTable").innerHTML = "<p>No purchase records available.</p>";
+    } else {
+      let arr = purchaseMaster.map(function (n) {
+        let product = productMaster.find((p) => p.productName === n.productName);
+        if (product) {
+          n.price = product.sellingPrice;
+          n.value = n.quantity * n.price;
+        }
+        let str = "<tr>";
+        str += "<td>" + n.productName + "</td>";
+        str += "<td>" + n.quantity + "</td>";
+        str += "<td>" + n.price + "</td>";
+        str += "<td>" + n.value + "</td>";
+        str += "</tr>";
+        return str;
+      });
+
+      let str1 = "<tr>";
+      str1 += "<th>Product Name</th>";
+      str1 += "<th>Quantity</th>";
+      str1 += "<th>Price</th>";
+      str1 += "<th>Value</th>";
+      str1 += "</tr>";
+
+      let html = "<table>" + str1 + arr.join("") + "</table>";
+      document.getElementById("productTable").innerHTML = html;
+    }
+  }
+
+  let purcategory = productMaster.map(product => product.productName);
+
+  function addpurchase() {
+    let s1 = makeCodeDD("Pcategory", purcategory, "Select Name", "");
+    s1 += 'Quantity:<input type="number" id="quantity"/><br>';
+    s1 += '<button onclick="addpurchaseProduct()">Add</button>';
+    document.getElementById("productTable").innerHTML = s1;
+  }
+
+  function addpurchaseProduct() {
+    let obj = {};
+    obj.productName = document.getElementById("Pcategory").value;
+    obj.quantity = parseFloat(document.getElementById("quantity").value);
+    let product = productMaster.find(function (n) {
+      return n.productName === obj.productName;
+    });
+    let product1 = purchaseMaster.find(function (n) {
+      return n.productName === obj.productName;
+    });
+    if (product) {
+      obj.price = product.sellingPrice;
+      if (product1) {
+        obj.quantity += product1.quantity;
+        let index = purchaseMaster.indexOf(product1);
+        purchaseMaster.splice(index, 1, obj);
+      } else {
+        purchaseMaster.push(obj);
+      }
+      purchaseMastertable();
+    } else {
+      alert("Product not found in the Product Master.");
+    }
+  }
+
+  function addNewProduct() {
+    let s1 = 'New product Name: <input type="text" id="name"><br>';
+    s1 += makeCodeDD("category", categoryDrop, "Select Category", "") + '<br>';
+    s1 += 'Buy price: <input type="number" id="buy"><br>';
+    s1 += 'Selling Price: <input type="number" id="sell"><br><br>';
+    s1 += '<button onclick="addProduct()">Add</button>';
+    document.getElementById("productTable").innerHTML = s1;
+  }
+
+  let categoryDrop = ["Food", "Shampoo", "Soap", "ToothPaste"];
+
+
+</script>
+</body>
+</html>

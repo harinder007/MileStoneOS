@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <button onclick="getData()">Show form</button>
+    <div id="dispArea"></div>
+    <script>
+      const courses = ["full stack", "python", "java"];
+      let data = {};
+
+      function getData() {
+        let str = 'name:<input type="text" id="name"><br/>';
+        str += 'age:<input type="number" id="age"><br/>';
+        str += makeCourseDD(courses, "Choose course",'') + "<br/>";
+        str += "<button onclick='submit()'>Submit</button>";
+        let div = document.getElementById("dispArea");
+        div.innerHTML = str;
+      }
+
+      function edit(){
+        let str = 'name:<input type="text" id="name" value="'+data.name+'"><br/>';
+        str += 'age:<input type="number" id="age" value="'+data.age+'"><br/>';
+        str += makeCourseDD(courses, "Choose course",data.course) + "<br/>";
+        str += "<button onclick='submit()'>Submit</button>";
+        let div = document.getElementById("dispArea");
+        div.innerHTML = str;
+
+      }
+
+      function makeCourseDD(arr, firstItem,selValue) {
+        let arr1 = arr.map(function (n) {
+            if(n==selValue)
+            return "<option selected>" + n + "</option>";
+            else
+           return "<option>" + n + "</option>";
+        });
+
+           let firstOption = "<option disabled>" + firstItem + "</option>";
+      if (selValue === '') {
+        firstOption = "<option disabled selected>" + firstItem + "</option>";
+      }
+
+      let s1 = '<select id="course">' + firstOption + arr1.join("") + "</select>";
+      return s1;
+    }
+
+
+      function submit() {
+        data.name = document.getElementById("name").value;
+        data.age = document.getElementById("age").value;
+        data.course = document.getElementById("course").value;
+        let str = "<h3>Name: " + data.name + "</h3>";
+        str += "<h3>Age: " + data.age + "</h3>";
+        str += "<h3>Course: " + data.course + "</h3>";
+
+        str += "<button onclick='edit()'>Edit</button>";
+
+        let div = document.getElementById("dispArea");
+        div.innerHTML = str;
+      }
+    </script>
+  </body>
+</html>

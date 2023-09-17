@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Quiz Competition Team Selection</h2>
+    <div id="applicant"></div>
+    <div id="team"></div>
+    <script>
+      let applicant = ["Jack", "Tim", "Bob", "Mary", "Anna", "Martha", "Steve", "Ed", "John", "Sid"];
+
+      function checkbox(id, arr) {
+        let r1 = arr.map(function (val, index) {
+          return (
+            '<div><input type="checkbox" id="' +id + index + '" onchange="updateTeam(\'' +  id +  index + '\')">' +'<label for="' + id + index + '">' +
+            val +
+            '</label></div>'
+          );
+        });
+        return r1.join("");
+      }
+
+      document.getElementById("applicant").innerHTML = checkbox("x", applicant);
+
+      let arr = [];
+
+      function updateTeam(id) {
+        let elem = document.getElementById(id);
+        let teamSizeLimit = 5;
+        let index = arr.indexOf(elem.nextElementSibling.textContent);
+
+        if (elem.checked) {
+          if (arr.length < teamSizeLimit) {
+            if (index === -1) {
+              arr.push(elem.nextElementSibling.textContent);
+            }
+            elem.parentNode.classList.add("hidden"); // Hide the whole div containing the checkbox and label
+          } else {
+            elem.checked = false;
+            return;
+          }
+        } else {
+          if (index !== -1) {
+            arr.splice(index, 1);
+            elem.parentNode.classList.remove("hidden"); // Show the div again
+          }
+        }
+
+        let teamSection = document.getElementById("team");
+
+        let s1 = "<h3>Team</h3>";
+        s1 += "<p>Size: " + arr.length + "</p>";
+        s1 += "<ul><li>" + arr.join("</li><li>") + "</li></ul>";
+        teamSection.innerHTML = s1;
+      }
+    </script>
+  </body>
+</html>

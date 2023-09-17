@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+        /* CSS for the table */
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3d0be453;
+        }
+
+        button {
+            background-color: #319d36;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #72e277;
+        }
+    </style>
+</head>
+<body>
+    <div id="showdata"></div>
+    <script>
+        let products = [
+            { prod: 'Pepsi', price: 15, stock: 20 },
+            { prod: 'Coke', price: 18, stock: 30 },
+            { prod: 'Maggi', price: 10, stock: 35 },
+            { prod: 'Nescafe', price: 40, stock: 10 },
+            { prod: 'Dairy Milk', price: 30, stock: 12 },
+            { prod: 'Frito Lays', price: 20, stock: 15 }
+        ];
+        let cart = [];
+
+        show();
+
+        function show() {
+            let s1 = showResult();
+            let s2 = showCart();
+            let element = document.getElementById('showdata');
+            element.innerHTML = s1 + s2; // Render both product list and cart
+        }
+
+        function showResult() {
+            let rMap = products.map(function (n) {
+                let str = '<tr>';
+                str += '<td>' + n.prod + '</td>';
+                str += '<td>' + n.price + '</td>';
+                str += '<td>' + n.stock + '</td>';
+                str += '<td><button onclick="addCarts(\'' + n.prod + '\')">Add to Cart</button></td>';
+                str += '</tr>';
+                return str;
+            });
+
+            let header = '<tr>';
+            header += '<th>Product</th>';
+            header += '<th>Price</th>';
+            header += '<th>Stock</th>';
+            header += '<th></th>';
+            header += '</tr>';
+            let html = '<h2>List of Products</h2>';
+            html += '<table>' + header + rMap.join('') + '</table>';
+            return html;
+        }
+
+        function showCart() {
+            let fMap = cart.map(function (n) {
+                let str = '<tr>';
+                str += '<td>' + n.prod + '</td>';
+                str += '<td>' + n.price + '</td>';
+                str += '<td>' + n.stock + '</td>';
+                str += '<td>' + n.addCart + '</td>';
+                str += '</tr>';
+                return str;
+            });
+
+            let header = '<tr>';
+            header += '<th>Product</th>';
+            header += '<th>Price</th>';
+            header += '<th>Stock</th>';
+            header += '<th></th>';
+            header += '</tr>';
+            let html = '<h2>My cart</h2>';
+            if (cart.length == 0) {
+                html += '<h3>Cart is empty </h3>';
+            } else {
+                let count = cart.reduce(function (acc, curr) {
+                    return acc + curr.addCart;
+                }, 0);
+
+
+                let totalBill = cart.reduce(function (acc, curr) {
+                    return acc + curr.price * curr.addCart;
+                }, 0);
+                html += '<p>Items in Cart: ' + count + '</p>';
+                html += '<p>Total Bill: $' + totalBill + '</p>';
+            }
+
+
+
+
+            
+            html += '<table>' + header + fMap.join('') + '</table>';
+            return html;
+        }
+
+        function addCarts(prod) {
+            let r1 = cart.find(function (n) {
+                return n.prod == prod;
+            });
+            if (r1) {
+                r1.addCart++;
+            } else {
+                let Product1 = products.find(function (n) {
+                    return n.prod == prod;
+                });
+                let item = { prod: Product1.prod, price: Product1.price, stock: Product1.stock, addCart: 1 };
+                cart.push(item); // Add the item to the cart
+            }
+            show(); // Render the updated cart
+        }
+    </script>
+    
+</body>
+</html>

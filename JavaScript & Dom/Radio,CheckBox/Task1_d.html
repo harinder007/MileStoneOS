@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="newradios"></div>
+    <script>
+        const radioOption=[
+            {value:"Slot1", txt:"8Am-11Am"},
+            {value:"Slot2", txt:"11Am-2Pm"},
+            {value:"Slot3", txt:"2Am-5Pm"},
+            {value:"Slot4", txt:"5Am-8Pm"}
+        ];
+
+        let html = makeRadios("delradio", radioOption, '');
+        document.getElementById("newradios").innerHTML = html;
+
+        function makeRadios(name, arr, selectedValue) {
+            const arr1 = arr.map(function(item) {
+                let checkedStr = '';
+                if (item.value == selectedValue)
+                    checkedStr = 'checked';
+                let s1 = '<input type="radio" name="' + name + '" value="' + item.value + '" ' + checkedStr + '>' + item.txt;
+                return s1;
+            });
+            return arr1.join('');
+        }
+    </script>
+</body>
+</html>

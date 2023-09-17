@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    What do you Know best <br>
+    <input type="radio" name="tech" value="Javascript" id="r1">Javascript <br>
+    <input type="radio" name="tech" value="React" id="r2">React <br>
+    <input type="radio" name="tech" value="Angular" id="r3">Angular<br>
+    <button onclick="showChecked()">Show Checked value</button>
+    <button onclick="check('tech','Javascript')">Check Javascript1</button><br>
+    <button onclick="checkById('r2')">Check By Id</button>
+    <button onclick="disableAll('tech',true)">Disable All</button>
+    <button onclick="disableAll('tech',false)">Enable All</button><br>
+    <script>
+
+ function check(name,value){
+            let names=document.getElementsByName(name)
+     // console.log(names)
+        for(let i=0; i<names.length;i++){
+            if(names[i].value==value){
+        value=names[i].checked=true
+    } else
+        names[i].checked=false;
+
+          }
+   console.log(value);
+        }
+function checkById(id){
+    document.getElementById(id).checked=true;
+   }
+function disableAll(name,bool){
+            let names=document.getElementsByName(name)
+     // console.log(names)
+        for(let i=0; i<names.length;i++){
+        names[i].disabled=bool
+    } 
+        }
+function showChecked(){
+    // get element by Name collection of all elemnt matching the name
+    let value=""
+    let names=document.getElementsByName("tech")
+   // console.log(names)
+   for(let i=0; i<names.length;i++){
+    if(names[i].checked){
+        value=names[i].value
+    }
+
+   }
+   console.log(value);
+}
+    </script>
+</body>
+</html>

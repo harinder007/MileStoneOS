@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       .tab1{
+    width:70%;
+    height: 70%;
+}
+.td3{
+     width: 50%;
+    color:black;
+    border:1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.td2{
+display: inline-block;
+margin-left: 10px;
+}
+.blue{
+    background-color: lightblue;
+    color: black;
+}
+.pink{
+    background-color: rgb(246, 167, 178);
+    color: black;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Products Details</h1>
+    <div id="Data"></div>
+    <script>
+      let array = [
+        {
+          name: "Maggi",
+          price: 25,
+          offers: ["Citi Credit Cards", "ICICI Card"],
+        },
+        { name: "Perk", price: 10, offers: ["Axis Credit Cards", "PayTM"] },
+        { name: "Gems", price: 15, offers: ["SBI Card", "PhonePe", "PayTM"] },
+        { name: "Lindt", price: 90, offers: [] },
+        { name: "Nutties", price: 12, offers: ["Citi Credit Cards "] },
+        { name: "Pepsi", price: 15, offers: ["PhonePe", "PayTM"] },
+        { name: "Coca Cola", price: 15, offers: ["SBI Card"] },
+        { name: "Dairy Milk", price: 10, offers: [] },
+      ];
+
+      let startIndex=-1;
+      ShowData()
+
+      function ShowData() {
+        let arr = array.map(function (n,index) {
+          if(startIndex==index)
+        {
+            let str="<tr><td class='td3 td2 pink'>";
+             str+='Name:'+n.name+"<br/>";
+             str+='Price:'+n.price+"<br/>";
+             if(n.offers.length==0)
+             {
+                 str+='No Offer<br/>';
+             }
+             else
+             {
+                str+=n.offers.length+"  Offers from<br/>";
+             }
+             let off = n.offers.map(function(of) {
+                return of;
+                    });
+                  str += off.join('</br>') + '</br>';
+                  str += '<button onclick=' + 'Choose2("' + index + '")' + '>Hide Offers</button>';
+                  str += '</td></tr>';
+                  return str;
+
+        }
+        else
+        {
+            let str="<tr><td class='td3 td2 blue'>";
+             str+='Name:'+n.name+"<br/>";
+             str+='Price:'+n.price+"<br/>";
+             str+="<button  onclick="+'Choose("'+index+'")'+">Show Offers</button>";
+             str+="</td></tr>";
+             return str;
+        }
+      
+    });
+    let html="<table class='tab1'>"+arr.join("")+"</table>";
+
+        document.getElementById("Data").innerHTML = html;
+      }
+
+      function Choose(ind)
+      {
+        startIndex=ind
+        ShowData();
+      }
+
+      function Choose2(ind){
+        startIndex=-1
+        ShowData();
+      }
+
+    </script>
+  </body>
+</html>

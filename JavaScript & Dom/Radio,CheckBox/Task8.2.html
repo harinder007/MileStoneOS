@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sports Selection Form</title>
+</head>
+<body>
+  <h2>Student Sports Selection</h2>
+  <form id="studentForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+
+    <label>Sport:</label><br>
+    <div id="sportOptions"></div><br>
+
+    <button type="button" id="submitButton" onclick="submitForm()">Submit</button>
+    <button type="button" id="updateButton" onclick="updateForm()" style="display: none;">Update</button>
+  </form>
+
+  <h2>Student List:</h2>
+  <ul id="studentList"></ul>
+
+  <script>
+    const sports = ["Cricket", "Football", "Basketball", "Badminton", "Table Tennis"];
+    let studentsArray = [];
+
+    // Function to create the radio options 
+    function createSportRadios() {
+      const options = sports.map((sport) => {
+        return `
+          <input type="radio" name="sport" value="${sport}" required>
+          <label for="${sport}">${sport}</label><br>
+        `;
+      }).join('');
+
+      document.getElementById("sportOptions").innerHTML = options;
+    }
+
+    // Function to handle the form submission
+    function submitForm() {
+      const form = document.getElementById("studentForm");
+      const name = form.elements["name"].value;
+      const sport = form.elements["sport"].value;
+
+      const student = {
+        name: name,
+        sport: sport,
+      };
+
+      studentsArray.push(student);
+      form.reset();
+      displayStudentList();
+
+      console.log("Student Data:", student);
+      console.log("Updated Students Array:", studentsArray);
+    }
+
+    // Function to display the list of students
+    function displayStudentList() {
+      const list = document.getElementById("studentList");
+      list.innerHTML = '';
+
+      studentsArray.forEach((student, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${student.name} - ${student.sport}`;
+        listItem.addEventListener('click', () => {
+          populateFormForEdit(index);
+        });
+
+        list.appendChild(listItem);
+      });
+    }
+
+    // Function to populate the form in edit mode
+    function populateFormForEdit(index) {
+      const form = document.getElementById("studentForm");
+      const student = studentsArray[index];
+
+      form.elements["name"].value = student.name;
+      form.elements["name"].readOnly = true;
+
+      const sportOptions = form.elements["sport"];
+      for (let i = 0; i < sportOptions.length; i++) {
+        if (sportOptions[i].value === student.sport) {
+          sportOptions[i].checked = true;
+        } else {
+          sportOptions[i].checked = false;
+        }
+      }
+
+      document.getElementById("submitButton").style.display = "none";
+      document.getElementById("updateButton").style.display = "block";
+      document.getElementById("updateButton").dataset.index = index;
+    }
+
+    // Function to handle form update
+    function updateForm() {
+      const form = document.getElementById("studentForm");
+      const index = form.elements["updateButton"].dataset.index;
+      const name = form.elements["name"].value;
+      const sport = form.elements["sport"].value;
+
+      studentsArray[index].name = name;
+      studentsArray[index].sport = sport;
+
+      form.reset();
+      form.elements["name"].readOnly = false;
+      document.getElementById("submitButton").style.display = "block";
+      document.getElementById("updateButton").style.display = "none";
+
+      displayStudentList();
+    }
+
+    // Call the function to create sport radio options dynamically
+    createSportRadios();
+  </script>
+</body>
+</html>

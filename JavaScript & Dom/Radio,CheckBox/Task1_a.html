@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    What you Want <br>
+    <input type="checkbox" id="cb1">Javascript <br>
+    <input type="checkbox" id="cb2">React Js <br>
+    <input type="checkbox" id="cb3">Node <br>
+    <button onclick="showChecked()">Show Checked Value</button><br>
+    <button onclick="checkAll()">checkAll</button>
+    <button onclick="uncheckAll(false)">Uncheck All</button><br>
+    <button onclick="disableAll(true)">Disable All</button>
+    <button onclick="enableAll()">Enable All</button>
+
+    <script>
+        function showChecked(){
+            let cb1=document.getElementById("cb1");
+            let cb2=document.getElementById("cb2");
+            let cb3=document.getElementById("cb3");
+
+            console.log("cb1",cb1.checked);
+            console.log("cb2",cb2.checked);
+            console.log("cb3",cb3.checked);
+        }
+        function checkAll(){
+            document.getElementById("cb1").checked=true
+            document.getElementById("cb2").checked=true
+            document.getElementById("cb3").checked=true;
+        }
+// we can do with the boolean also by passing parameter
+        function uncheckAll(bool){
+            document.getElementById("cb1").checked=bool
+            document.getElementById("cb2").checked=bool
+            document.getElementById("cb3").checked=bool
+        }
+        function disableAll(bool){
+            document.getElementById("cb1").disabled=bool
+            document.getElementById("cb2").disabled=bool
+            document.getElementById("cb3").disabled=bool
+        }
+        function enableAll(){
+            document.getElementById("cb1").disabled=false
+            document.getElementById("cb2").disabled=false
+            document.getElementById("cb3").disabled=false
+        }
+
+    </script>
+</body>
+</html>

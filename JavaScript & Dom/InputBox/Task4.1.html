@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      td {
+        border: 2px solid rgb(241, 235, 235);
+      }
+
+      table {
+        border: 2px solid rgb(249, 245, 245);
+        border-collapse: collapse;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        width: 30%;
+      }
+
+      th {
+        cursor: pointer;
+        border: 1px solid rgb(238, 227, 227);
+        background-color: black;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .red {
+        background-color: red;
+      }
+      .gray {
+        background-color: gray;
+      }
+      .green {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="table"></div>
+    <script>
+      let array = [
+        { name: "jack", oldweight: 65, newweight: 68 },
+        { name: "Mary", oldweight: 55, newweight: 53 },
+        { name: "Bob", oldweight: 66, newweight: 70 },
+        { name: "Steve", oldweight: 55, newweight: 75 },
+        { name: "James", oldweight: 62, newweight: 71 },
+        { name: "Julia", oldweight: 52, newweight: 52 },
+        { name: "Micheal", oldweight: 64, newweight: 74 },
+        { name: "Bill", oldweight: 68, newweight: 68 },
+        { name: "Sony", oldweight: 61, newweight: 60 }
+      ];
+
+      function showData(arr1) {
+        let str =
+          'New weight between:<input type="number" id="minWeight" placeholder="Enter min Weight"></input>';
+        str +=
+          '<input type="number" id="maxWeight" placeholder="Enter max weight"></input><br>';
+        str += "<button onclick=filter()>Filter</button>";
+        let arr = arr1.map(function (n) {
+          let str = `<tr class='${ColorChange(n.oldweight, n.newweight)}'>`;
+          str += "<td>" + n.name + "</td>";
+          str += "<td>" + n.oldweight + "</td>";
+          str += "<td>" + n.newweight + "</td>";
+
+          str += "</tr>";
+          return str;
+        });
+        let str1 = "<tr>";
+        str1 += '<th onclick="sort(0)">Name</th>';
+        str1 += '<th onclick="sort(1)">Old Weight</th>';
+        str1 += '<th onclick="sort(2)">New Weight</th>';
+
+        str1 += "</tr>";
+        let html = "<table>" + str + str1 + arr.join("") + "</table>";
+        document.getElementById("table").innerHTML = html;
+      }
+      //showData(array);
+      function sort(Value) {
+        if (Value === 0) {
+          array.sort(sortName);
+        } else if (Value === 1) {
+          array.sort(sortMinWeight);
+        } else if (Value === 2) {
+          array.sort(sortMaxWeight);
+        }
+        showData(array);
+      }
+
+      function sortName(a, b) {
+        let nameA = a.name.toUpperCase();
+        let nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return 1;
+        }
+        if (nameA > nameB) {
+          return -1;
+        }
+        return 0;
+      }
+
+      function sortMinWeight(a, b) {
+        return -1 * a.oldweight - b.oldweight;
+      }
+
+      function sortMaxWeight(a, b) {
+        return -1 * a.newweight - b.newweight;
+      }
+      function ColorChange(c1, w2) {
+        if (c1 < w2) {
+          return "red";
+        } else if (c1 > w2) {
+          return "green";
+        } else return "gray";
+      }
+      
+      function filter() {
+        let s1 = document.getElementById("minWeight").value;
+        let s2 = document.getElementById("maxWeight").value;
+
+        if (s1 === "" || s2 === "") {
+          alert("Please enter both the min and max weights.");
+          return;
+        }
+
+        let filteredArray = array.filter(function (n) {
+          return s1 <= n.newweight && n.newweight <= s2;
+        });
+
+      //  array = filteredArray;
+        showData(filteredArray);
+
+        // Reset the input values back to the input boxes after filtering
+        document.getElementById("minWeight").value = s1;
+        document.getElementById("maxWeight").value = s2;
+      }
+      showData(array);
+    </script>
+  </body>
+</html>

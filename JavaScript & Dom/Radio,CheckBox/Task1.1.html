@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h1>What do you know</h1>
+    <br />
+    <input type="checkbox" id="ch1" />Javascript<br />
+    <input type="checkbox" id="ch2" />React<br />
+    <input type="checkbox" id="ch3" />Node<br />
+    <button onclick="checkedValue()">Show checked value</button>
+    <script>
+      function checkedValue() {
+        let ch1 = document.getElementById("ch1");
+        let ch2 = document.getElementById("ch2");
+
+        let c32 = document.getElementById("ch3");
+
+        console.log("ch1", ch1.checked);
+        console.log("ch2", ch2.checked);
+        console.log("ch3", ch3.checked);
+      }
+    </script>
+  </body>
+</html>

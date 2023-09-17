@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <br>
+    <input type="radio" name="tech" value="Angular" id="r1" onchange="show()">Javascript 
+    <input type="radio" name="tech" value="React" id="r2" onchange="show()">React 
+    <input type="radio" name="tech" value="JavaScript" id="r3" onchange="show()">JavaScript
+    
+    <div id="angular"></div>
+    <div id="react"></div>
+    <div id="javascript"></div>
+
+    <script>
+        function show() {
+            let val = "";
+            let select = document.getElementsByName("tech");
+            for (let i = 0; i < select.length; i++) {
+                if (select[i].checked) {
+                    val = select[i].value;
+                }
+            }
+            console.log(val);
+            if (val === "Angular") {
+                let ang = '<select>' +
+                         '<option>Select the angular version</option>' +
+                         '</select>';
+                document.getElementById("angular").innerHTML = ang;
+            } else {
+                document.getElementById("angular").innerHTML = "";
+            }
+            if (val === "React") {
+                let rect = '<input type="checkbox"> Do you know about react-native';
+                document.getElementById("react").innerHTML = rect;
+            } else {
+                document.getElementById("react").innerHTML = "";
+            }
+            if (val === "JavaScript") {
+                let rect = '<input type="radio" name="tech1">Bootstrap 3';
+                rect += '<input type="radio" name="tech1">Bootstrap 4';
+                document.getElementById("javascript").innerHTML = rect;
+            } else {
+                document.getElementById("javascript").innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

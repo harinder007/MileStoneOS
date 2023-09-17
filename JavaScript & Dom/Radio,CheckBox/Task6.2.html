@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <br />
+    <div id="data"></div>
+
+    <div id="list"></div>
+    <script>
+      let arr = ["Cricket", "Football", "Basketball", "Badminton", "Table Tennis"];
+
+      function checkbox(id, arr, selectedSports) {
+        let r1 = arr.map(function (val, index) {
+          let checked = selectedSports.includes(val) ? "checked" : "";
+          return (
+            '<input type="checkbox" id="' +
+            id +
+            index +
+            '" ' +
+            checked +
+            '>' +
+            val +
+            "<br/>"
+          );
+        });
+        return r1.join("");
+      }
+
+      function getdata() {
+        let str =
+          '<input type="text" placeholder="Enter the student name" id="name"/><br>';
+        str += checkbox("x", arr, []);
+        str += '<button onclick="add()">Add student</button>';
+        document.getElementById("data").innerHTML = str;
+      }
+      let data = [];
+
+      function add() {
+        let St = {};
+        St.name = document.getElementById("name").value;
+        St.sports = [];
+
+        for (let i = 0; i < arr.length; i++) {
+          let checkbox = document.getElementById("x" + i);
+          if (checkbox.checked) {
+            St.sports.push(arr[i]);
+          }
+        }
+        data.push(St);
+        updateList();
+        clearForm();
+      }
+
+      function updateList() {
+        let s1 = "";
+        data.map(function (student, index) {
+          s1 +=
+            '<h3 onclick="edit(' +
+            index +
+            ')">' +
+            student.name +
+            "</h3>";
+          s1 += "<ul>";
+          student.sports.map(function (sport) {
+            s1 += "<li>" + sport + "</li>";
+          });
+          s1 += "</ul>";
+        });
+        document.getElementById("list").innerHTML = s1;
+      }
+
+      function edit(index) {
+        let student = data[index];
+        let str =
+          '<input type="text" placeholder="Enter the student name" id="name" value="' +
+          student.name +
+          '" readonly/><br>';
+        str += checkbox("x", arr, student.sports);
+        str +=
+          '<button onclick="update(' +
+          index +
+          ')">Update</button>'; // Changed button name to "Update"
+        document.getElementById("data").innerHTML = str;
+      }
+
+      function update(index) {
+        let student = data[index];
+        student.name = document.getElementById("name").value;
+        student.sports = [];
+        for (let i = 0; i < arr.length; i++) {
+          let checkbox = document.getElementById("x" + i);
+          if (checkbox.checked) {
+            student.sports.push(arr[i]);
+          }
+        }
+        updateList();
+        clearForm();
+        showAddButton(); // Show the "Add student" button after the update is complete
+      }
+
+      function showAddButton() {
+        let str =
+          '<input type="text" placeholder="Enter the student name" id="name"/><br>';
+        str += checkbox("x", arr, []);
+        str +=
+          '<button onclick="add()">Add student</button>'; // Show the "Add student" button
+        document.getElementById("data").innerHTML = str;
+      }
+
+      // to clear the form
+      function clearForm() {
+        document.getElementById("name").value = "";
+        arr.map(function (sport, i) {
+          document.getElementById("x" + i).checked = false;
+        });
+      }
+
+      getdata();
+    </script>
+  </body>
+</html>

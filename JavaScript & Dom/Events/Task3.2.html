@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" placeholder="No b or B"id="one" onkeyup="update()">
+    <input type="text"id="zero">
+
+    <script>
+        function update(){
+            let a = document.getElementById("one").value;
+
+            let modifiedValue = "";
+
+            for (let i = 0; i < a.length; i++) {
+                if (a[i].toLowerCase() !=="b") {
+                    modifiedValue += a[i];
+                }
+                else {
+                    
+                    document.getElementById('one').value = "";
+                    //document.getElementById("zero").value = "";
+                    return; 
+                }
+            }
+
+            document.getElementById("zero").value = modifiedValue;
+        }
+
+        update();
+    </script>
+</body>
+</html>

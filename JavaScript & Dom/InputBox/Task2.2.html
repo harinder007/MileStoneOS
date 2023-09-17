@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Item List</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 15%;
+      margin-top: 10px;
+    }
+    td {
+      border: 1px solid #0d0d0d;
+      padding: 5px;
+      text-align: center;
+    }
+    .remove-btn {
+      cursor: pointer;
+      align-items: center;
+      border-right: 1px solid #0d0d0d;
+    }
+    .edit-btn {
+      cursor: pointer;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <label for="itemName">Name:</label>
+    <input type="text" id="itemName" /><br>
+    <label for="quantity">Quantity:</label>
+    <input type="text" id="quantity" /><br>
+    <button onclick="addItem()">Add Product</button>
+    <div id="display"></div>
+  </div>
+
+  <script>
+    let data = [
+      { itemName: 'Maggie', quantity: '28' },
+      { itemName: 'Perk', quantity: '7' },
+      { itemName: 'Gems', quantity: '11' },
+      { itemName: 'Lindt', quantity: '4' },
+      { itemName: 'Nutties', quantity: '20' },
+    ];
+
+    displayTable();
+
+    function addItem() {
+      const itemName = document.getElementById("itemName").value;
+      const quantity = document.getElementById("quantity").value;
+
+      // Create an object for the item and add it to the data array
+      data.push({ itemName: itemName, quantity: quantity });
+
+      // Clear input fields after adding the item
+      document.getElementById("itemName").value = "";
+      document.getElementById("quantity").value = "";
+
+      displayTable(); // Update the table after adding the item
+    }
+
+    function displayTable() {
+      let tableHTML = "<table>";
+      tableHTML += "<tr><th>Name</th><th>Quantity</th><th></th><th></th></tr>";
+
+      tableHTML += data
+        .map(function (item, index) {
+          return (
+            "<tr><td>" +
+            item.itemName +
+            "</td><td>" +
+            item.quantity +
+            "</td><td><button class='remove-btn' onclick='removeItem(" +
+            index +
+            ")'>Remove</button></td><td><button class='edit-btn' onclick='editItem(" +
+            index +
+            ")'>Edit</button></td></tr>"
+          );
+        })
+        .join("");
+
+      tableHTML += "</table>";
+
+      let div = document.getElementById("display");
+      div.innerHTML = tableHTML;
+    }
+
+    function removeItem(index) {
+      data.splice(index, 1);
+      displayTable(); // Update the table after removing the item
+    }
+
+    function editItem(index) {
+      const itemToEdit = data[index];
+      document.getElementById("itemName").value = itemToEdit.itemName;
+      document.getElementById("itemName").readOnly = true; // Set "Name" input field as read-only
+      document.getElementById("quantity").value = itemToEdit.quantity;
+
+      const addButton = document.querySelector("button");
+      addButton.innerText = "Update";
+      addButton.onclick = function () {
+        updateItem(index);
+      };
+    }
+
+    function updateItem(index) {
+      const newName = document.getElementById("itemName").value;
+      const newQuantity = document.getElementById("quantity").value;
+
+      data[index].itemName = newName;
+      data[index].quantity = newQuantity;
+
+      // Clear input fields and reset the button text to "Add Product"
+      document.getElementById("itemName").value = "";
+      document.getElementById("quantity").value = "";
+
+      const addButton = document.querySelector("button");
+      addButton.innerText = "Add Product";
+      addButton.onclick = addItem;
+
+      displayTable(); // Update the table after modifying the item
+    }
+  </script>
+</body>
+
+</html>

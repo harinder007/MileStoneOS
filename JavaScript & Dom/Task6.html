@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+      
+        table {
+          border-collapse: collapse;
+          width: 30%;
+          margin: 20px auto;
+          border: 2px solid #ccc;
+        }
+      
+        th, td {
+          padding: 10px;
+          text-align: center;
+        }
+      
+        th {
+          background-color: #f2f2f2;
+          border: 1px solid #ccc;
+        }
+      
+        tr {
+          border-bottom: 1px solid #ccc;
+        }
+      
+        .Green {
+          background-color: greenyellow;
+        }
+      
+        .Pink {
+          background-color: rgb(227, 141, 197);
+        }
+      
+        .Blue {
+          background-color: aqua;
+        }
+      
+        button {
+          padding: 3px 5px;
+          font-size: 14px;
+          cursor: pointer;
+          border: none;
+          border-radius: 4px;
+        }
+      
+        button:hover {
+          background-color: #3071a9;
+        }
+      
+        h2 {
+          text-align: center;
+        }
+      </style>
+      
+      
+</head>
+<body>
+    <div id="showdata"></div>
+    <script>
+        let  quiz = [
+            { name: "Einstein", score: 0 },
+            { name: "Newton", score: 0 },
+            { name: "Edison", score: 0 }
+        ];
+
+        show();
+        function show(){
+            let s1=showResult();
+            let element=document.getElementById('showdata');
+            element.innerHTML=s1;
+        }
+
+        function showResult(){
+            let rMap=quiz.map(function(ele){
+               // let constData=getElement(ele)
+
+                let str = '<tr class=\'' + getElement(ele)+ '\'>';
+             
+                str+='<td>'+ele.name+'</td>';
+                str+='<td>'+ele.score+'</td>';
+                str += '<td><button onclick="touchtwo(\'' + ele.name + '\')">+2</button></td>';
+                str += '<td><button onclick="touchOne(\'' + ele.name + '\')">-1</button></td>';
+             str += '</tr>';
+             return str;
+
+            })
+
+            let header='<tr>';
+            let html='<h2>Welcome to Quiz Show</h2>';
+            header+= '</tr>';
+            html+='<table>'+header+rMap.join('')+'</table>';
+            return html;
+
+
+        }
+
+
+        function getElement(element) {
+         if (element.score == 0) {
+             return 'Blue';
+         } else if (element.score > 0) {
+              return 'Green';
+         } else if (element.score < 0) {
+           return 'Pink';
+                 }
+            }
+
+
+
+       function touchtwo(name) {
+  let a = quiz.find(function (n) {
+    return n.name == name;
+  });
+  a.score = a.score + 2;
+  show();
+}
+
+function touchOne(name) {
+  let a = quiz.find(function (n) {
+    return n.name == name;
+  });
+  a.score = a.score - 1;
+  show();
+}
+
+    </script>
+</body>
+</html>
