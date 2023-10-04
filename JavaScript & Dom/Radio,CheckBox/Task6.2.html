@@ -13,9 +13,11 @@
         let r1 = arr.map(function (val, index) {
           let checked = selectedSports.includes(val) ? "checked" : "";
           return (
-            '<input type="checkbox" id="' +
+            '<input type="checkbox" id="' +$lastDigit
+
+//
             id +
-            index +
+            index + 
             '" ' +
             checked +
             '>' +
